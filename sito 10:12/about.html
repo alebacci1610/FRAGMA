@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRAGMA | Doctrine</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'fragma-white': '#FBFBFB',
+                        'fragma-black': '#010101',
+                        'fragma-gray': '#707070',
+                        'fragma-orange': '#EB5335',
+                    },
+                    fontFamily: {
+                        sans: ['TT Hoves Pro', 'sans-serif'],
+                        mono: ['Input Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* --- TYPOGRAPHY SYSTEM (PURE) --- */
+        
+        /* Il titolo Hero gigante */
+        .hero-statement {
+            font-size: clamp(3rem, 5.5vw, 6.5rem); 
+            line-height: 1;
+            letter-spacing: -0.03em;
+            font-weight: 400; /* Medium/Regular per impatto */
+            color: #FBFBFB;
+        }
+
+        /* I titoli delle sezioni che si incollano (Sticky) */
+        .section-sticky-title {
+            font-size: clamp(2rem, 3vw, 3.5rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            font-weight: 300; /* Light */
+            color: #FBFBFB;
+            
+            position: sticky;
+            top: 140px; /* Punto di ancoraggio */
+        }
+
+        /* Il paragrafo introduttivo (Lead) */
+        .body-lead {
+            font-size: clamp(1.25rem, 1.5vw, 1.6rem); /* ~20-26px */
+            line-height: 1.4;
+            font-weight: 300;
+            color: #FBFBFB;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Il testo corpo */
+        .body-text {
+            font-size: 1.05rem; /* ~17px */
+            line-height: 1.7;
+            color: #9CA3AF; /* Gray 400 */
+            font-weight: 300;
+            margin-bottom: 2rem;
+            max-width: 65ch; /* Lunghezza riga ottimale per lettura */
+        }
+
+        /* Enfasi nel testo (niente colori, solo peso) */
+        .body-text strong {
+            color: #FBFBFB;
+            font-weight: 400;
+        }
+
+        /* Linea separatrice ultra-sottile */
+        .clean-divider {
+            width: 100%;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 0;
+        }
+
+        /* Reveal Animation semplice */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-sans font-light selection:bg-fragma-orange selection:text-black bg-fragma-black text-fragma-white">
+
+    <div id="cursor"></div>
+
+    <header class="fixed top-0 w-full z-50 backdrop-blur-md border-b border-white/5 h-20 flex items-center px-6 md:px-12 justify-between">
+        <a href="index.html" class="block w-32 cursor-none hover:opacity-80 transition-opacity">
+            <img src="fragma-logo.png" alt="FRAGMA" class="h-10 w-auto object-contain"> 
+        </a>
+        
+        <nav class="hidden md:flex gap-12 font-mono text-xs tracking-widest text-gray-400">
+            <a href="products.html" class="hover:text-white transition-colors">PRODUCTS</a>
+            <a href="technology.html" class="hover:text-white transition-colors">TECHNOLOGY</a>
+            <a href="about.html" class="hover:text-white transition-colors">ABOUT</a>
+        </nav>
+
+        <div class="hidden md:block">
+            <a href="#" target="_blank" class="font-mono text-xs text-gray-500 hover:text-white transition-colors tracking-wider flex items-center gap-2">
+                REACH US <span class="text-[10px]">↗</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-[1920px] mx-auto bg-fragma-black">
+
+        <section class="pt-48 pb-32 px-6 md:px-12 border-b border-white/5 min-h-[70vh] flex flex-col justify-end">
+            <div class="max-w-7xl mx-auto w-full">
+                <span class="font-mono text-[10px] text-gray-500 tracking-widest uppercase mb-8 block reveal-up">
+                    00 // Operational Doctrine
+                </span>
+                <h1 class="hero-statement reveal-up" style="transition-delay: 0.1s;">
+                    We do not predict the future.<br>
+                    We <span class="text-gray-600">write it</span>.
+                </h1>
+            </div>
+        </section>
+
+        <section class="py-24 md:py-40 px-6 md:px-12">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24 relative">
+                
+                <div class="md:col-span-5 relative">
+                    <h2 class="section-sticky-title">Why We Are Here</h2>
+                </div>
+
+                <div class="md:col-span-7">
+                    <p class="body-lead reveal-up">
+                        We believe that in a hyper-connected world, reality is no longer a matter of fact, but an artifact of syntax.
+                    </p>
+                    
+                    <div class="reveal-up" style="transition-delay: 0.1s;">
+                        <p class="body-text">
+                            With the right infrastructure, language becomes more than a medium of communication—it becomes a strategic asset. In 2025, when we looked at the available cognitive technology, we saw systems designed to predict text, not to understand intent. We saw automated approaches that failed against adaptive disinformation.
+                        </p>
+                        <p class="body-text">
+                            We saw organizations forced to make unacceptable trade-offs between silence and chaos, unable to control the narrative environment in which they operate. We saw a need for a different kind of technology—one that doesn't just process data, but <strong>stabilizes truth</strong>. That’s why we founded Fragma.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-12"><div class="clean-divider"></div></div>
+
+        <section class="py-24 md:py-40 px-6 md:px-12">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24 relative">
+                
+                <div class="md:col-span-5 relative">
+                    <h2 class="section-sticky-title">What We Do</h2>
+                </div>
+
+                <div class="md:col-span-7">
+                    <p class="body-lead reveal-up">
+                        We build the operating system for cognitive security and linguistic engineering.
+                    </p>
+                    
+                    <div class="reveal-up" style="transition-delay: 0.1s;">
+                        <p class="body-text">
+                            We’re focused on creating the world’s most advanced interface for working with <strong>semantic vectors</strong>. Our products empower operators to ask and answer complex questions about reality without requiring them to master the chaos of raw information overload.
+                        </p>
+                        <p class="body-text">
+                            To achieve this, we build platforms for integrating, managing, and securing the cognitive layer. On top of this foundation, we layer applications for fully interactive, human-driven, machine-assisted reality construction. We do not replace human intent; we sharpen it into a precision instrument.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-12"><div class="clean-divider"></div></div>
+
+        <section class="py-24 md:py-40 px-6 md:px-12">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24 relative">
+                
+                <div class="md:col-span-5 relative">
+                    <h2 class="section-sticky-title">Where We Are Going</h2>
+                </div>
+
+                <div class="md:col-span-7">
+                    <p class="body-lead reveal-up">
+                        Institutions around the world are using Fragma to stabilize their narrative environment.
+                    </p>
+                    
+                    <div class="reveal-up" style="transition-delay: 0.1s;">
+                        <p class="body-text">
+                            With Fragma, governments are preventing social unrest before it manifests physically. Intelligence agencies are unraveling complex semantic webs used by hostile actors. Corporate entities are aligning internal culture with absolute precision.
+                        </p>
+                        <p class="body-text">
+                            But this is just the beginning. We are working to build a future in which public institutions and commercial enterprises can function as they were designed—free from the friction of misunderstanding. A future where language is no longer a barrier to truth, but its perfect vessel.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="pt-24 pb-10 bg-fragma-black border-t border-white/10">
+        <div class="max-w-[1920px] mx-auto px-6 md:px-12">
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16 max-w-7xl mx-auto">
+                <div class="space-y-6">
+                    <img src="fragma-logo.png" alt="Fragma" class="h-6 object-contain opacity-50 grayscale invert-0">
+                    <p class="font-mono text-[10px] text-gray-600 leading-relaxed max-w-xs">
+                        Speculative linguistics and reality engineering infrastructure.
+                        <br><br>
+                        Milano, IT — Sector 7
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-3 font-mono text-[10px] uppercase tracking-widest">
+                    <span class="text-gray-600 mb-2">Index</span>
+                    <a href="company.html" class="text-white hover-target transition-colors">Company</a>
+                    <a href="technology.html" class="text-gray-600 hover:text-white hover-target transition-colors">Technology</a>
+                    <a href="index.html" class="text-gray-600 hover:text-white hover-target transition-colors">Recently</a>
+                    <a href="products.html" class="text-gray-600 hover:text-white hover-target transition-colors">Operations</a>
+                </div>
+
+                <div class="flex flex-col gap-3 font-mono text-[10px] uppercase tracking-widest">
+                    <span class="text-gray-600 mb-2">Protocol</span>
+                    <a href="#" class="text-gray-600 hover:text-white hover-target transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-600 hover:text-white hover-target transition-colors">Ethics Board</a>
+                    <a href="#" class="text-gray-600 hover:text-white hover-target transition-colors">Terms of Use</a>
+                </div>
+
+                <div class="flex flex-col justify-start">
+                    <span class="font-mono text-[10px] text-gray-600 mb-6 tracking-widest uppercase">Clearance Request</span>
+                    <form class="w-full">
+                        <div class="relative border-b border-white/20 pb-2">
+                            <input type="email" placeholder="ENTER_EMAIL_ADDRESS" class="w-full bg-transparent text-xs font-mono text-white placeholder-gray-700 focus:outline-none uppercase tracking-wider">
+                            <button type="button" class="absolute right-0 bottom-2 text-fragma-orange hover:text-white transition-colors text-lg">></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center mt-8 font-mono text-[10px] text-gray-600 uppercase tracking-widest border-t border-white/5 pt-4">
+                <span>© 2025 Fragma Systems.</span>
+                <div class="flex items-center gap-2 mt-2 md:mt-0">
+                    <span class="w-1 h-1 bg-green-900 rounded-full"></span>
+                    <span>System Normal</span>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Intersection Observer for Reveal Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-up').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

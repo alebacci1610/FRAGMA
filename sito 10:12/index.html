@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRAGMA | Strategic Linguistics</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'fragma-white': '#FBFBFB',
+                        'fragma-black': '#010101',
+                        'fragma-darkgray': '#161616',
+                        'fragma-gray': '#707070',
+                        'fragma-orange': '#EB5335',
+                    },
+                    fontFamily: {
+                        sans: ['TT Hoves Pro', 'sans-serif'],
+                        mono: ['Input Mono', 'monospace'],
+                    },
+                    fontWeight: {
+                        light: 300,
+                        normal: 400,
+                        medium: 500,
+                        bold: 700
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* --- REVEAL ANIMATION --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- HIGH END NEWS MODAL --- */
+        #news-modal {
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+        }
+        #news-modal.hidden-modal {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        #news-modal.visible-modal {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        
+        .modal-backdrop {
+            background-color: rgba(5, 5, 5, 0.9);
+            backdrop-filter: blur(12px);
+        }
+
+        /* Scrollbar personalizzata per il testo del modale */
+        .modal-scroll::-webkit-scrollbar { width: 4px; }
+        .modal-scroll::-webkit-scrollbar-track { background: transparent; }
+        .modal-scroll::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+        .modal-scroll::-webkit-scrollbar-thumb:hover { background: #EB5335; }
+
+        /* Close Button Hover Rotation */
+        .close-x { transition: transform 0.3s ease, color 0.3s ease; }
+        .close-x:hover { transform: rotate(90deg); color: #fff; }
+
+    </style>
+</head>
+<body class="font-sans font-light selection:bg-fragma-orange selection:text-black bg-fragma-black text-fragma-white">
+
+    <div id="cursor"></div>
+
+    <header class="fixed top-0 w-full z-50 backdrop-blur-md border-b border-white/5 h-20 flex items-center px-6 md:px-12 justify-between">
+        <a href="index.html" class="block w-32 cursor-none hover:opacity-80 transition-opacity">
+            <img src="fragma-logo.png" alt="FRAGMA" class="h-10 w-auto object-contain"> 
+        </a>
+        
+        <nav class="hidden md:flex gap-12 font-mono text-xs tracking-widest text-gray-400">
+            <a href="products.html" class="hover:text-white transition-colors">PRODUCTS</a>
+            <a href="technology.html" class="hover:text-white transition-colors">TECHNOLOGY</a>
+            <a href="about.html" class="hover:text-white transition-colors">ABOUT</a>
+        </nav>
+
+        <div class="hidden md:block">
+            <a href="#" target="_blank" class="font-mono text-xs text-gray-500 hover:text-white transition-colors tracking-wider flex items-center gap-2">
+                REACH US <span class="text-[10px]">↗</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-fragma-black">
+        <video autoplay muted loop playsinline class="video-bg">
+            <source src="video_segnaposto_1.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-black/40 z-0"></div>
+        <div class="absolute bottom-12 z-10 font-mono text-[10px] text-gray-400 tracking-widest animate-pulse">
+             SCROLL TO DECRYPT ↓
+        </div>
+    </section>
+
+    <section class="py-32 px-6 md:px-12 relative border-b border-white/5 bg-fragma-black">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 items-start">
+            <div class="md:col-span-3 flex flex-col pt-2 reveal">
+                <span class="font-mono text-[10px] text-gray-500 block mb-4 tracking-widest">01 // CONTEXT</span>
+                <h3 class="text-xl font-light tracking-tight text-white uppercase">Cognitive<br>Warfare</h3>
+            </div>
+            <div class="md:col-span-9 space-y-16">
+                <p class="text-3xl md:text-5xl font-light leading-tight text-gray-300 reveal">
+                    We are an innovative company developing <strong class="text-white font-medium">engineered linguistic weaponry.</strong> We transform language into strategic technology for those who see words as means of power, defense, and the <strong class="text-white font-medium">construction of reality. </strong>
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12 border-t border-white/10 reveal">
+                    <div class="space-y-4">
+                        <h4 class="font-mono text-xs text-gray-500 tracking-widest">[ THE PROBLEM ]</h4>
+                        <p class="text-sm text-gray-400 leading-relaxed font-light">
+                            In a world saturated with information, reality is not a matter of fact, but an artifact. Without control over syntax, you are at the mercy of others' narratives.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-mono text-xs text-gray-500 tracking-widest">[ THE SOLUTION ]</h4>
+                        <p class="text-sm text-gray-400 leading-relaxed font-light">
+                            Supercomputers and proprietary LLMs that apply rhetorical artifacts to dematerialize the sentence and reconstruct it according to precise strategic goals.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <section class="py-24 px-6 md:px-12 border-b border-white/5 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <span class="font-mono text-[10px] text-gray-500 block mb-8 tracking-widest reveal">02 // PARAMETRIC LOGIC</span>
+            <div class="flex justify-between items-end reveal">
+                <h3 class="text-2xl text-white font-light max-w-md">
+                    From single objectives <br>to complex reality.
+                </h3>
+            </div>
+        </div>
+
+        <div class="absolute inset-0 top-1/2 -translate-y-1/2 w-full h-96 opacity-50 pointer-events-none">
+            <svg class="w-full h-full filament-lines" viewBox="0 0 1000 400" preserveAspectRatio="none">
+                <line x1="0" y1="50" x2="1000" y2="350" stroke="white" stroke-width="0.6" opacity="0.5" />
+                <line x1="0" y1="50" x2="1000" y2="250" stroke="white" stroke-width="0.6" opacity="0.6" />
+                <line x1="0" y1="50" x2="1000" y2="150" stroke="white" stroke-width="0.6" opacity="0.7" />
+                <line x1="0" y1="50" x2="1000" y2="50" stroke="white" stroke-width="0.6" opacity="0.4" />
+                
+                <line x1="0" y1="200" x2="1000" y2="380" stroke="white" stroke-width="0.6" opacity="0.5" />
+                <line x1="0" y1="200" x2="1000" y2="300" stroke="white" stroke-width="0.6" opacity="0.6" />
+                <line x1="0" y1="200" x2="1000" y2="200" stroke="white" stroke-width="1.0" opacity="0.8" /> <line x1="0" y1="200" x2="1000" y2="100" stroke="white" stroke-width="0.6" opacity="0.6" />
+                <line x1="0" y1="200" x2="1000" y2="20" stroke="white" stroke-width="0.6" opacity="0.5" />
+                
+                <line x1="0" y1="350" x2="1000" y2="350" stroke="white" stroke-width="0.6" opacity="0.4" />
+                <line x1="0" y1="350" x2="1000" y2="250" stroke="white" stroke-width="0.6" opacity="0.7" />
+                <line x1="0" y1="350" x2="1000" y2="150" stroke="white" stroke-width="0.6" opacity="0.6" />
+                <line x1="0" y1="350" x2="1000" y2="50" stroke="white" stroke-width="0.6" opacity="0.5" />
+                
+                <line x1="200" y1="100" x2="800" y2="300" stroke="white" stroke-width="0.4" opacity="0.3" />
+                <line x1="200" y1="300" x2="800" y2="100" stroke="white" stroke-width="0.4" opacity="0.3" />
+            </svg>
+        </div>
+    </section>
+
+    <section class="py-32 bg-fragma-black border-b border-white/5 overflow-hidden relative">
+        <div class="max-w-[1920px] mx-auto px-6 md:px-12 relative group/section">
+            <div class="mb-12 flex items-end justify-between max-w-7xl mx-auto">
+                <div class="reveal">
+                    <span class="font-mono text-[10px] text-gray-500 block mb-4 tracking-widest">03 // RECENTLY</span>
+                    <h2 class="text-3xl md:text-5xl font-light tracking-tighter text-white uppercase">Latest<br>Developments</h2>
+                </div>
+            </div>
+
+            <div class="relative w-full reveal">
+                <button class="carousel-nav-btn left hover-target" onclick="document.getElementById('carousel-track').scrollBy({left: -624, behavior: 'smooth'})">←</button>
+                <button class="carousel-nav-btn right hover-target" onclick="document.getElementById('carousel-track').scrollBy({left: 624, behavior: 'smooth'})">→</button>
+
+                <div id="carousel-track" class="flex overflow-x-auto gap-6 pb-8 scrollbar-hide snap-x snap-mandatory px-0 md:px-0">
+                    
+                    <div onclick="openNews('Neural Network Expansion v2.4', '12.04.2025', 'carousel_1.jpg', 'Deployment of the new recursive neural architecture has increased semantic processing speed by 400%. The update allows for real-time sentiment shifting across distributed social clusters with zero latency.')" 
+                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[500px] relative snap-center group carousel-card bg-[#080808]">
+                        <img src="carousel_1.jpg" alt="Update 1" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500 grayscale group-hover:grayscale-0">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-8 md:p-10">
+                            <div class="flex justify-between items-end border-b border-white/20 pb-4 mb-4">
+                                <span class="font-mono text-[10px] text-gray-400">12.04.2025</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <h3 class="text-2xl md:text-3xl font-light text-white mb-2 leading-tight">Neural Network<br>Expansion v2.4</h3>
+                                <span class="text-fragma-orange text-xl mb-3 opacity-0 group-hover:opacity-100 transition-opacity">+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div onclick="openNews('Global Sentiment Vector Shift', '10.04.2025', 'carousel_2.jpg', 'Strategic adjustment of global sentiment vectors has successfully mitigated potential unrest in Sector 4. The vector shift algorithm now predicts social volatility with 94% accuracy.')"
+                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[500px] relative snap-center group carousel-card bg-[#080808]">
+                        <img src="carousel_2.jpg" alt="Update 2" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500 grayscale group-hover:grayscale-0">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-8 md:p-10">
+                            <div class="flex justify-between items-end border-b border-white/20 pb-4 mb-4">
+                                <span class="font-mono text-[10px] text-gray-400">10.04.2025</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <h3 class="text-2xl md:text-3xl font-light text-white mb-2 leading-tight">Global Sentiment<br>Vector Shift</h3>
+                                <span class="text-fragma-orange text-xl mb-3 opacity-0 group-hover:opacity-100 transition-opacity">+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div onclick="openNews('Rhetorical Firewall Active', '01.04.2025', 'carousel_3.jpg', 'Activation of the defensive Rhetorical Firewall is complete. This system automatically detects and neutralizes hostile semantic structures before they can take root in the public consciousness.')"
+                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[500px] relative snap-center group carousel-card bg-[#080808]">
+                        <img src="carousel_3.jpg" alt="Update 3" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500 grayscale group-hover:grayscale-0">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-8 md:p-10">
+                            <div class="flex justify-between items-end border-b border-white/20 pb-4 mb-4">
+                                <span class="font-mono text-[10px] text-gray-400">01.04.2025</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <h3 class="text-2xl md:text-3xl font-light text-white mb-2 leading-tight">Rhetorical<br>Firewall Active</h3>
+                                <span class="text-fragma-orange text-xl mb-3 opacity-0 group-hover:opacity-100 transition-opacity">+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div onclick="openNews('Protocol 9: Syntax Stabilization', '28.03.2025', 'carousel_4.jpg', 'Successful implementation of Protocol 9 has reduced semantic drift in high-volatility zones by 85%. The syntax stabilization grid is now fully operational across European sectors, ensuring narrative consistency even during peak information overload.')"
+                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[500px] relative snap-center group carousel-card bg-[#080808]">
+                        <img src="carousel_4.jpg" alt="Update 4" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500 grayscale group-hover:grayscale-0">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-8 md:p-10">
+                            <div class="flex justify-between items-end border-b border-white/20 pb-4 mb-4">
+                                <span class="font-mono text-[10px] text-gray-400">28.03.2025</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <h3 class="text-2xl md:text-3xl font-light text-white mb-2 leading-tight">Protocol 9:<br>Syntax Stabilization</h3>
+                                <span class="text-fragma-orange text-xl mb-3 opacity-0 group-hover:opacity-100 transition-opacity">+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div onclick="openNews('Cognitive Latency Milestone', '22.03.2025', 'carousel_5.jpg', 'Optimization of the core rendering engine has achieved a new milestone. Narrative injection now occurs within the threshold of subconscious perception (under 15ms), bypassing critical analysis filters in the subject entirely.')"
+                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[500px] relative snap-center group carousel-card bg-[#080808]">
+                        <img src="carousel_5.jpg" alt="Update 5" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500 grayscale group-hover:grayscale-0">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-8 md:p-10">
+                            <div class="flex justify-between items-end border-b border-white/20 pb-4 mb-4">
+                                <span class="font-mono text-[10px] text-gray-400">22.03.2025</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <h3 class="text-2xl md:text-3xl font-light text-white mb-2 leading-tight">Cognitive Latency<br>Milestone</h3>
+                                <span class="text-fragma-orange text-xl mb-3 opacity-0 group-hover:opacity-100 transition-opacity">+</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="min-w-[5vw]"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-6 md:px-12 bg-fragma-black relative border-b border-white/5">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 reveal">
+                <div>
+                    <span class="font-mono text-[10px] text-gray-500 tracking-widest block mb-4">04 // GLOBAL TRACKING</span>
+                    <h2 class="text-3xl md:text-5xl font-light tracking-tighter text-white uppercase">Active<br>Fragma users</h2>
+                </div>
+                <div class="font-mono text-[10px] text-right text-gray-500 space-y-2">
+                    <div class="flex items-center gap-2 justify-end">
+                        <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                        LIVE MONITORING
+                    </div>
+                    <div>14,092 NODES ONLINE</div>
+                </div>
+            </div>
+
+            <div class="relative w-full max-w-5xl mx-auto mt-8 reveal">
+                <img src="mondo.svg" alt="Global Map" class="w-full h-auto opacity-50 block relative z-0">
+                <div class="absolute inset-0 w-full h-full z-10">
+                    <div class="map-dot" style="left: 18%; top: 32%;"></div> <div class="map-dot" style="left: 26%; top: 34%;"></div> <div class="map-dot" style="left: 24%; top: 28%;"></div> <div class="map-dot" style="left: 32%; top: 65%;"></div> <div class="map-dot" style="left: 28%; top: 75%;"></div> <div class="map-dot" style="left: 49%; top: 26%;"></div> <div class="map-dot" style="left: 51%; top: 28%;"></div> <div class="map-dot" style="left: 53%; top: 25%;"></div> <div class="map-dot" style="left: 60%; top: 24%;"></div> <div class="map-dot" style="left: 72%; top: 35%;"></div> <div class="map-dot" style="left: 82%; top: 32%;"></div> <div class="map-dot" style="left: 85%; top: 36%;"></div> <div class="map-dot" style="left: 79%; top: 42%;"></div> <div class="map-dot" style="left: 55%; top: 40%;"></div> <div class="map-dot" style="left: 50%; top: 55%;"></div> <div class="map-dot" style="left: 90%; top: 75%;"></div> </div>
+            </div>
+            </div>
+            
+            <div class="flex gap-8 mt-4 font-mono text-[10px] text-gray-600 justify-center opacity-60 reveal">
+                <span>LATENCY: 12ms</span>
+                <span>PACKET LOSS: 0.00%</span>
+                <span>ENCRYPTION: AES-256</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-6 md:px-12 bg-fragma-black">
+        <div class="max-w-7xl mx-auto">
+            <span class="font-mono text-[10px] text-gray-500 block mb-12 tracking-widest reveal">05 // DEPLOYED OPERATIONS</span>
+            
+            <div class="border-t border-white/20">
+                <a href="products.html" class="block group border-b border-white/10 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hoverable transition-all duration-300 cursor-none hover-target reveal">
+                    <div class="w-full md:w-1/2 group-hover:translate-x-4 transition-transform duration-300 ease-out">
+                        <span class="font-mono text-[10px] text-gray-600 mb-2 block tracking-widest">2025 / POLITICAL SECTOR</span>
+                        <h3 class="text-3xl md:text-4xl font-light text-gray-300 group-hover:text-white transition-colors">Syntax F1</h3>
+                    </div>
+                    <div class="mt-6 md:mt-0 w-full md:w-1/3 flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-xs font-mono text-gray-400 max-w-xs leading-relaxed">
+                            HAPTIC RHETORIC ENGINE
+                        </p>
+                        <span class="text-fragma-orange text-xl">↗</span>
+                    </div>
+                </a>
+
+                <a href="products.html" class="block group border-b border-white/10 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hoverable transition-all duration-300 cursor-none hover-target reveal">
+                    <div class="w-full md:w-1/2 group-hover:translate-x-4 transition-transform duration-300 ease-out">
+                        <span class="font-mono text-[10px] text-gray-600 mb-2 block tracking-widest">2025 / CORPORATE DEFENSE</span>
+                        <h3 class="text-3xl md:text-4xl font-light text-gray-300 group-hover:text-white transition-colors">Synapse-Overlay</h3>
+                    </div>
+                    <div class="mt-6 md:mt-0 w-full md:w-1/3 flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-xs font-mono text-gray-400 max-w-xs leading-relaxed">
+                            KERNEL LEVEL ROOTKIT
+                        </p>
+                        <span class="text-fragma-orange text-xl">↗</span>
+                    </div>
+                </a>
+
+                <a href="products.html" class="block group border-b border-white/10 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hoverable transition-all duration-300 cursor-none hover-target reveal">
+                    <div class="w-full md:w-1/2 group-hover:translate-x-4 transition-transform duration-300 ease-out">
+                        <span class="font-mono text-[10px] text-gray-600 mb-2 block tracking-widest">2025 / CLASSIFIED</span>
+                        <h3 class="text-3xl md:text-4xl font-light text-gray-300 group-hover:text-white transition-colors">Neuro-Lexis</h3>
+                    </div>
+                    <div class="mt-6 md:mt-0 w-full md:w-1/3 flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-xs font-mono text-gray-400 max-w-xs leading-relaxed">
+                            NANODUST SENSOR
+                        </p>
+                        <span class="text-fragma-orange text-xl">↗</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-fragma-black border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 reveal">
+            <span class="font-mono text-[10px] text-gray-600 block mb-16 tracking-widest text-center uppercase">
+                Trusted by Strategic Partners & Classified Sectors
+            </span>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 items-center justify-items-center opacity-60">
+                <div class="group flex items-center gap-3 cursor-none hover:opacity-100 transition-opacity duration-300">
+                    <div class="w-8 h-8 border border-white/30 rounded-full flex items-center justify-center group-hover:border-fragma-orange transition-colors">
+                        <div class="grid grid-cols-2 gap-[1px]">
+                            <div class="w-1 h-1 bg-white rounded-full"></div><div class="w-1 h-1 bg-white rounded-full"></div>
+                            <div class="w-1 h-1 bg-white rounded-full"></div><div class="w-1 h-1 bg-white rounded-full"></div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-white font-bold text-sm tracking-tighter leading-none group-hover:text-fragma-orange transition-colors">EDA</span>
+                        <span class="text-[8px] font-mono text-gray-500 uppercase tracking-widest">European Defence</span>
+                    </div>
+                </div>
+                <div class="group flex items-center gap-3 cursor-none hover:opacity-100 transition-opacity duration-300">
+                    <div class="flex flex-col items-center">
+                        <div class="w-6 h-[1px] bg-white group-hover:bg-fragma-orange transition-colors mb-1"></div>
+                        <span class="text-white font-bold text-sm tracking-widest leading-none">US.DOD</span>
+                        <div class="w-6 h-[1px] bg-white group-hover:bg-fragma-orange transition-colors mt-1"></div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-[8px] font-mono text-gray-500 uppercase tracking-widest pl-2 border-l border-white/20">Pentagon Access</span>
+                    </div>
+                </div>
+                <div class="group flex items-center gap-3 cursor-none hover:opacity-100 transition-opacity duration-300">
+                    <div class="w-8 h-8 border border-white/30 flex items-center justify-center group-hover:border-fragma-orange transition-colors relative">
+                        <div class="absolute w-full h-[1px] bg-white/20 rotate-45"></div>
+                        <div class="absolute w-full h-[1px] bg-white/20 -rotate-45"></div>
+                        <span class="text-white text-[8px] font-mono relative z-10 bg-fragma-black px-1">N</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-white font-bold text-sm tracking-tighter leading-none group-hover:text-fragma-orange transition-colors">NATO</span>
+                        <span class="text-[8px] font-mono text-gray-500 uppercase tracking-widest">Innovation Fund</span>
+                    </div>
+                </div>
+                <div class="group flex items-center gap-3 cursor-none hover:opacity-100 transition-opacity duration-300">
+                    <div class="flex gap-[2px]">
+                        <div class="w-[3px] h-6 bg-white group-hover:bg-fragma-orange transition-colors"></div>
+                        <div class="w-[1px] h-6 bg-gray-600"></div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-white font-bold text-sm tracking-tighter leading-none">MOD.UK</span>
+                        <span class="text-[8px] font-mono text-gray-500 uppercase tracking-widest">Strategic Command</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="pt-24 pb-10 bg-fragma-black border-t border-white/10">
+        <div class="max-w-[1920px] mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16 max-w-7xl mx-auto">
+                <div class="space-y-6">
+                    <img src="fragma-logo.png" alt="Fragma" class="h-6 object-contain opacity-50 grayscale invert-0">
+                    <p class="font-mono text-[10px] text-gray-600 leading-relaxed max-w-xs">
+                        Speculative linguistics and reality engineering infrastructure.<br><br>Milano, IT — Sector 7
+                    </p>
+                </div>
+                <div class="flex flex-col gap-3 font-mono text-[10px] uppercase tracking-widest">
+                    <span class="text-gray-600 mb-2">Index</span>
+                    <a href="products.html" class="hover:text-white transition-colors">Products</a>
+                    <a href="technology.html" class="hover:text-white transition-colors">Technology</a>
+                    <a href="about.html" class="hover:text-white transition-colors">About</a>
+                    <a href="#" class="hover:text-white transition-colors">Recently</a>
+                </div>
+                <div class="flex flex-col gap-3 font-mono text-[10px] uppercase tracking-widest">
+                    <span class="text-gray-600 mb-2">Protocol</span>
+                    <a href="#" class="text-gray-600 hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-600 hover:text-white transition-colors">Ethics Board</a>
+                    <a href="#" class="text-gray-600 hover:text-white transition-colors">Terms of Use</a>
+                </div>
+                <div class="flex flex-col justify-start">
+                    <span class="font-mono text-[10px] text-gray-600 mb-6 tracking-widest uppercase">Clearance Request</span>
+                    <form class="w-full">
+                        <div class="relative border-b border-white/20 pb-2">
+                            <input type="email" placeholder="ENTER_EMAIL_ADDRESS" class="w-full bg-transparent text-xs font-mono text-white placeholder-gray-700 focus:outline-none uppercase tracking-wider">
+                            <button type="button" class="absolute right-0 bottom-2 text-fragma-orange hover:text-white transition-colors text-lg">></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center mt-8 font-mono text-[10px] text-gray-600 uppercase tracking-widest border-t border-white/5 pt-4">
+                <span>© 2025 Fragma Systems.</span>
+                <div class="flex items-center gap-2 mt-2 md:mt-0">
+                    <span class="w-1 h-1 bg-green-900 rounded-full"></span>
+                    <span>System Normal</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="news-modal" class="fixed inset-0 z-[100] modal-backdrop flex items-center justify-center hidden-modal" onclick="closeNews(event)">
+        
+        <div class="bg-[#050505] border border-white/10 w-full max-w-5xl h-[85vh] relative flex overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
+            
+            <button onclick="closeNews()" class="absolute top-6 right-6 text-gray-500 hover:text-white z-30 close-x text-2xl font-light leading-none">
+                ✕
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 w-full h-full">
+                
+                <div class="md:col-span-5 relative h-64 md:h-full border-r border-white/5 bg-black">
+                    <img id="modal-img" src="" alt="News Image" class="absolute inset-0 w-full h-full object-cover opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                </div>
+
+                <div class="md:col-span-7 p-10 md:p-16 overflow-y-auto modal-scroll bg-[#050505] flex flex-col">
+                    
+                    <div class="mb-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <span id="modal-date" class="font-mono text-[10px] text-gray-500 tracking-widest"></span>
+                        </div>
+                        <h2 id="modal-title" class="text-3xl md:text-4xl text-white font-light leading-none mb-2"></h2>
+                    </div>
+
+                    <div class="space-y-6 text-gray-400 font-light text-sm leading-relaxed text-justify">
+                        <p id="modal-abstract" class="text-white font-normal text-base"></p>
+                        
+                        <div id="modal-analysis" class="space-y-6 opacity-80">
+                            </div>
+                    </div>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Reveal Observer
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => { observer.observe(el); });
+
+        // --- INTELLIGENCE MODAL LOGIC ---
+        
+        // Testo di riempimento per far sembrare l'articolo lungo e serio
+        const analysisText = `
+            <p><strong>Operational Analysis:</strong> The deployment initiated a cascade of semantic re-indexing across the targeted cluster. Preliminary data suggests a 99.8% coherence rate in sentiment alignment. The underlying syntax architecture successfully navigated the rhetorical defenses of the subject group, utilizing recursive linguistic patterns to bypass cognitive resistance.</p>
+            <p>This update represents a significant milestone in our roadmap towards total narrative stability. By leveraging the new neural pathways established in v2.4, we can now predict and neutralize counter-narratives with sub-millisecond latency. The ethical compliance module remained active throughout the engagement, ensuring all operations fell within the parameters of the revised Fragma Protocol.</p>
+            <p>Future iterations will focus on increasing the granularity of the intervention, moving from cluster-wide sentiment shifts to individual cognitive vectoring. This will require an upgrade to the server infrastructure in Sector 7, scheduled for the next fiscal quarter.</p>
+        `;
+
+        function openNews(title, date, img, abstract) {
+            const modal = document.getElementById('news-modal');
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-date').innerText = date;
+            document.getElementById('modal-img').src = img;
+            document.getElementById('modal-abstract').innerText = abstract;
+            document.getElementById('modal-analysis').innerHTML = analysisText; // Inietta il testo lungo
+            
+            modal.classList.remove('hidden-modal');
+            modal.classList.add('visible-modal');
+            document.body.style.overflow = 'hidden'; // Blocca scroll pagina
+        }
+
+        function closeNews() {
+            const modal = document.getElementById('news-modal');
+            modal.classList.remove('visible-modal');
+            modal.classList.add('hidden-modal');
+            document.body.style.overflow = 'auto'; // Sblocca scroll pagina
+        }
+    </script>
+</body>
+</html>

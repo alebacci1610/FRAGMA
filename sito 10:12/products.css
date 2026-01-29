@@ -1,0 +1,245 @@
+/* ==========================================================================
+   1. SETUP FONT CUSTOM
+   Percorso: cartella 'fonts/'
+   ========================================================================== */
+
+/* TT HOVES PRO (Trial Version) */
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('fonts/TT_Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('fonts/TT_Medium.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('fonts/TT_Regular.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('fonts/TT_Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* INPUT MONO */
+@font-face {
+    font-family: 'Input Mono';
+    src: url('fonts/input.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* --- BASE STYLES --- */
+body {
+    margin: 0; overflow: hidden;
+    background-color: #010101; color: #FBFBFB;
+    font-family: 'TT Hoves Pro', sans-serif;
+}
+#cursor {
+    position: fixed; top: 0; left: 0;
+    width: 8px; height: 8px; background-color: #EB5335;
+    border-radius: 50%; pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+}
+.split-container {
+    display: flex; width: 100vw; height: 100vh;
+    padding-top: 80px; box-sizing: border-box;
+}
+#canvas-container {
+    width: 50%; position: relative; overflow: hidden;
+    background: radial-gradient(circle at center, #0f0f0f 0%, #010101 100%);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+#data-panel {
+    width: 50%; height: 100%; overflow-y: auto;
+    background-color: #010101; display: flex; flex-direction: column;
+    padding: 80px 100px; box-sizing: border-box;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* --- 3D LABELS --- */
+.node-label {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 6px 12px;
+    font-family: 'Input Mono', monospace; font-size: 9px;
+    color: #fff; text-transform: uppercase; letter-spacing: 1px;
+    cursor: pointer; pointer-events: auto; user-select: none;
+    transition: all 0.3s ease;
+    display: flex; align-items: center; gap: 8px;
+    backdrop-filter: blur(4px);
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 90% 100%, 0 100%); 
+}
+.node-label:hover, .node-label.active {
+    border-color: #EB5335; color: #EB5335;
+    background: rgba(235, 83, 53, 0.1);
+}
+.node-label::before {
+    content: ''; position: absolute; top: 50%; left: -20px;
+    width: 20px; height: 1px; background: rgba(255,255,255,0.3);
+    transform-origin: right; transition: 0.3s;
+}
+.node-label:hover::before, .node-label.active::before {
+    background: #EB5335; width: 30px; left: -30px;
+}
+
+/* --- PANEL CONTENT --- */
+.panel-empty-state {
+    height: 100%; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; color: #333;
+    font-family: 'Input Mono', monospace; font-size: 10px;
+    letter-spacing: 2px; text-align: center;
+}
+.panel-content {
+    opacity: 0; transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    display: none; padding-bottom: 150px;
+}
+.panel-content.visible { opacity: 1; transform: translateY(0); display: block; }
+
+/* HEADER & BREADCRUMB */
+.p-breadcrumb {
+    font-family: 'Input Mono', monospace; color: #555;
+    font-size: 10px; letter-spacing: 2px; display: block;
+    margin-bottom: 30px; text-transform: uppercase;
+}
+.p-breadcrumb span { color: #fff; }
+
+.p-title {
+    font-family: 'TT Hoves Pro', sans-serif; font-weight: 400;
+    font-size: 4.5rem; line-height: 0.85; text-transform: uppercase;
+    margin: 0 0 10px 0; color: #fff; letter-spacing: -2px;
+}
+.p-subtitle-lead {
+    font-family: 'TT Hoves Pro', sans-serif; font-weight: 300;
+    font-size: 1.2rem; color: #888; margin-bottom: 60px;
+    letter-spacing: 0.5px;
+}
+
+/* --- IMMAGINE INTEGRATA (MIGLIORATA) --- */
+.visual-integrated {
+    position: relative;
+    width: 100%; padding: 40px 0;
+    display: flex; justify-content: center; align-items: center;
+    margin-bottom: 80px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.p-image-small {
+    /* Dimensione ridotta per non dominare */
+    max-width: 50%; 
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(100%) contrast(1.1);
+    opacity: 0.9;
+    z-index: 1;
+}
+
+/* Hotspots (Ricalibrati) */
+.img-hotspot {
+    position: absolute;
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Input Mono', monospace; font-size: 9px;
+    color: #666; z-index: 2;
+}
+.img-hotspot::before {
+    content: ''; width: 4px; height: 4px; 
+    border: 1px solid #fff; border-radius: 50%;
+    background: #000;
+}
+.img-hotspot::after {
+    content: ''; position: absolute; 
+    height: 1px; background: rgba(255,255,255,0.2);
+    width: 30px; z-index: -1;
+}
+/* Posizionamenti relativi al container, non all'immagine */
+.hs-top-right { top: 30%; right: 20%; flex-direction: row-reverse; }
+.hs-top-right::after { right: 5px; transform: rotate(-45deg); transform-origin: right; }
+
+.hs-bottom-left { bottom: 30%; left: 15%; }
+.hs-bottom-left::after { left: 5px; transform: rotate(30deg); transform-origin: left; }
+
+.hs-bottom-right { bottom: 20%; right: 25%; flex-direction: row-reverse; }
+.hs-bottom-right::after { right: 5px; transform: rotate(-15deg); transform-origin: right; }
+
+
+/* --- LAYOUT EDITORIALE --- */
+.split-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr; 
+    gap: 40px;
+    padding: 60px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.split-label {
+    font-family: 'Input Mono', monospace; font-size: 10px;
+    color: #666; text-transform: uppercase; letter-spacing: 1px;
+    display: block; margin-top: 6px;
+}
+.split-text {
+    font-family: 'TT Hoves Pro', sans-serif; font-size: 1rem;
+    color: #ccc; line-height: 1.6; font-weight: 300;
+}
+.split-text strong { color: #fff; font-weight: 400; }
+
+/* TABELLA DATI TECNICI */
+.data-table {
+    width: 100%; border-collapse: collapse;
+    font-family: 'Input Mono', monospace; font-size: 10px;
+}
+.data-table tr { border-bottom: 1px solid #1a1a1a; }
+.data-table td { padding: 15px 0; color: #666; }
+.data-table td:last-child { text-align: right; color: #ccc; }
+
+/* --- TESTIMONIALS --- */
+.quotes-section { padding-top: 80px; margin-bottom: 60px; }
+.quote-block {
+    margin-bottom: 40px; padding-left: 20px;
+    /* BORDO GRIGIO SU TUTTI */
+    border-left: 2px solid #333; 
+}
+.quote-text {
+    font-family: 'TT Hoves Pro', sans-serif; font-size: 1.3rem;
+    font-style: italic; color: #fff; margin-bottom: 15px;
+    line-height: 1.4;
+}
+.quote-author {
+    font-family: 'Input Mono', monospace; font-size: 10px;
+    color: #555; text-transform: uppercase;
+}
+
+/* DISCLAIMER E CERTIFICAZIONI (Footer Area) */
+.compliance-footer {
+    margin-top: 40px; padding-top: 40px;
+    border-top: 1px solid #111;
+    display: flex; flex-direction: column; gap: 20px;
+}
+.compliance-list {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    font-family: 'Input Mono', monospace; font-size: 9px; color: #444;
+}
+.comp-item { display: flex; align-items: center; gap: 5px; text-transform: uppercase; }
+.comp-item::before { content: '●'; font-size: 6px; color: #EB5335; }
+
+.legal-text {
+    font-family: 'Input Mono', monospace; font-size: 8px;
+    color: #333; line-height: 1.5; text-align: justify;
+    text-transform: uppercase; max-width: 100%;
+}
+
+/* Scrollbar */
+#data-panel::-webkit-scrollbar { width: 3px; }
+#data-panel::-webkit-scrollbar-track { background: #010101; }
+#data-panel::-webkit-scrollbar-thumb { background: #222; border-radius: 4px; }
+

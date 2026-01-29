@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRAGMA | Core Architecture</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'fragma-white': '#FBFBFB',
+                        'fragma-black': '#010101',
+                        'fragma-gray': '#888888',
+                        'fragma-orange': '#EB5335',
+                    },
+                    fontFamily: {
+                        sans: ['TT Hoves Pro', 'sans-serif'],
+                        mono: ['Input Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* --- GLOBAL STYLE --- */
+        body {
+            background-color: #010101;
+            color: #FBFBFB;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        
+        .page-title {
+            font-size: clamp(3.5rem, 6vw, 7rem);
+            line-height: 0.9;
+            font-weight: 300;
+            letter-spacing: -0.04em;
+            margin-bottom: 4rem;
+            color: #fff;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            line-height: 1.1;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+
+        /* Etichette Meta: Piccole, Bianche, Sobrie */
+        .meta-label {
+            font-family: 'Input Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #fff; 
+            opacity: 0.5;
+            margin-bottom: 1.5rem;
+            display: block;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 1rem;
+            width: fit-content;
+        }
+
+        .body-text {
+            font-size: 1.05rem; 
+            line-height: 1.7; 
+            color: #999;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+        
+        .body-text strong {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* --- IMAGES --- */
+        .tech-visual {
+            width: 100%;
+            height: auto;
+            display: block;
+            /* Mix Blend Mode per integrare i neri, rimuovi se le immagini sono già PNG trasparenti */
+            mix-blend-mode: screen; 
+            opacity: 0.9;
+            transition: opacity 0.5s ease;
+        }
+        
+
+        /* --- ELEGANT REVEAL ANIMATION --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px); /* Parte da 40px più in basso */
+            /* Curva di bezier per un movimento fluido e "pesante" */
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Ritardi per effetti a cascata */
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+
+    </style>
+</head>
+<body class="font-sans font-light selection:bg-white selection:text-black">
+
+    <div id="cursor"></div>
+
+    <header class="fixed top-0 w-full z-50 backdrop-blur-md border-b border-white/5 h-20 flex items-center px-6 md:px-12 justify-between">
+        <a href="index.html" class="block w-32 cursor-none hover:opacity-80 transition-opacity">
+            <img src="fragma-logo.png" alt="FRAGMA" class="h-10 w-auto object-contain"> 
+        </a>
+        
+        <nav class="hidden md:flex gap-12 font-mono text-xs tracking-widest text-gray-400">
+            <a href="products.html" class="hover:text-white transition-colors">PRODUCTS</a>
+            <a href="technology.html" class="hover:text-white transition-colors">TECHNOLOGY</a>
+            <a href="about.html" class="hover:text-white transition-colors">ABOUT</a>
+        </nav>
+
+        <div class="hidden md:block">
+            <a href="#" target="_blank" class="font-mono text-xs text-gray-500 hover:text-white transition-colors tracking-wider flex items-center gap-2">
+                REACH US <span class="text-[10px]">↗</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-32 px-6 md:px-12 max-w-[1920px] mx-auto">
+
+        <h1 class="page-title reveal">
+            System Architecture
+        </h1>
+
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-40 items-start border-b border-white/5 pb-20">
+            
+            <div class="lg:col-span-7 reveal">
+                <img src="tech_context.jpg" alt="Context Dimensions" class="tech-visual">
+            </div>
+
+            <div class="lg:col-span-5 sticky top-32">
+                <span class="meta-label reveal">FIG 01 // OPERATIONAL STACK</span>
+                
+                <h2 class="section-title reveal delay-100">
+                    Multidimensional Context
+                </h2>
+                
+                <div class="reveal delay-200">
+                    <p class="body-text">
+                        The operational architecture of Fragma is not linear; it is vertical. We have mapped the battlefield of reality into a stack of three interlinked planes: the <strong>Cognitive</strong>, the <strong>Virtual</strong>, and the <strong>Physical</strong>. This isometric structure allows for granular control of the perceived environment, where each layer feeds into the next in a continuous recursive loop.
+                    </p>
+                    <p class="body-text">
+                        The <strong>Cognitive Plane (Levels 1-2)</strong> represents the highest order of abstraction. This is where semantic structures, psychological biases, and cultural narratives reside. It is the domain of strategic intent and consensus engineering. Here, we do not manipulate data, but the meaning assigned to data.
+                    </p>
+                    <p class="body-text">
+                        The <strong>Virtual Plane</strong> acts as the transport layer, utilizing proprietary algorithms to manage signal distribution across digital vectors. Finally, the <strong>Physical Plane</strong> anchors the system, encompassing the hardware, the server farms, and ultimately, the biological interface: the human user.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-40 items-start border-b border-white/5 pb-20">
+            
+            <div class="lg:col-span-5 sticky top-32">
+                <span class="meta-label reveal">FIG 02 // NEURAL INTERFACE</span>
+                
+                <h2 class="section-title reveal delay-100">
+                    Adaptive Tiered Neuromodulation
+                </h2>
+                
+                <div class="reveal delay-200">
+                    <p class="body-text">
+                        The documented system presents a highly complex <strong>Brain-Computer Interface (BCI)</strong> structured on a hierarchical scale of five operational levels, defined as Tiers (0-4). This progression is strictly regulated by physical precision parameters and intensity measured in Watts per centimeter (W-cm).
+                    </p>
+                    <p class="body-text">
+                        While lower levels (Tier 1) operate in a low-frequency regime (30Hz) for surface-level suggestion, the critical levels such as <strong>Tier 4</strong> utilize invasive deep neural stimulation reaching frequencies of <strong>100Hz</strong>. This capability allows the system to rewrite processing in Broca's Area in real-time.
+                    </p>
+                    <p class="body-text">
+                        The integration of these frequencies aims to manipulate specific neuro-linguistic circuits through an adaptive neuromodulation protocol. This effectively reaches the soft tissue level of the brain with a precision estimated at approximately <strong>100µm</strong>, allowing for the editing of semantic intent before it becomes conscious thought.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 reveal">
+                <img src="tech_neural.jpg" alt="Neural Tiers Schema" class="tech-visual">
+            </div>
+        </section>
+
+
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-40 items-start border-b border-white/5 pb-20">
+            
+            <div class="lg:col-span-8 reveal">
+                <img src="tech_frequency.jpg" alt="Frequency Mechanics" class="tech-visual">
+            </div>
+
+            <div class="lg:col-span-4 sticky top-32">
+                <span class="meta-label reveal">FIG 03 // PROPAGATION</span>
+                
+                <h2 class="section-title reveal delay-100">
+                    Sono-Mechanical Control
+                </h2>
+                
+                <div class="reveal delay-200">
+                    <p class="body-text">
+                        Detailing the mechanism of high-frequency signal propagation. The system utilizes the <strong>Acoustic Radiative Force</strong> to trigger mechanosensitive ion channels within the neural membrane.
+                    </p>
+                    <p class="body-text">
+                        This process creates a <strong>"Sono-Thermal Switch"</strong>. By inducing controlled cavitation and moderate thermal effects, we can activate or inhibit neuronal action potentials without any direct physical contact.
+                    </p>
+                    <p class="body-text">
+                        The range of effect is sub-millimeter, allowing for the precise targeting of specific neural pathways within the temporal lobe, effectively bypassing the conscious filtering mechanisms of the subject.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            
+            <div class="lg:col-span-4 sticky top-32">
+                <span class="meta-label reveal">FIG 04 // BACKEND</span>
+                
+                <h2 class="section-title reveal delay-100">
+                    Global Infrastructure
+                </h2>
+                
+                <div class="reveal delay-200">
+                    <p class="body-text">
+                        Cognitive dominance requires immense computational power. Our server farms are not merely storage facilities; they are active content delivery platforms engineered for sub-millisecond latency.
+                    </p>
+                    <p class="body-text">
+                        The diagram illustrates the critical balance between <strong>Energy Consumption</strong> (peaking at 4.5 GW/h) and the semantic calculation capacity required for global deployment. To maintain continuous operation of the linguistic rendering engine, we utilize advanced liquid nitrogen cooling systems.
+                    </p>
+                    <p class="body-text">
+                        The architecture is decentralized across <strong>12,000 active nodes</strong> to ensure Tier IV resilience against both physical kinetic attacks and cyber-incursions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 reveal">
+                <img src="tech_infra.jpg" alt="Infrastructure Blueprint" class="tech-visual invert-image">
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="pt-24 pb-10 bg-fragma-black border-t border-white/10">
+        <div class="max-w-[1920px] mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16 max-w-7xl mx-auto">
+                <div class="space-y-6">
+                    <img src="fragma-logo.png" alt="Fragma" class="h-6 object-contain opacity-50 grayscale invert-0">
+                    <p class="font-mono text-[10px] text-gray-600 leading-relaxed max-w-xs">
+                        Speculative linguistics and reality engineering infrastructure.<br><br>Milano, IT — Sector 7
+                    </p>
+                </div>
+                <div class="flex flex-col gap-3 font-mono text-[10px] uppercase tracking-widest">
+                    <span class="text-gray-600 mb-2">Index</span>
+                    <a href="products.html" class="hover:text-white transition-colors">Products</a>
+                    <a href="technology.html" class="text-white transition-colors">Technology</a>
+                    <a href="about.html" class="hover:text-white transition-colors">About</a>
+                    <a href="index.html" class="text-gray-600 hover:text-white transition-colors">Recently</a>
+                </div>
+                <div class="flex flex-col gap-3 font-mono text-[10px] uppercase tracking-widest">
+                    <span class="text-gray-600 mb-2">Protocol</span>
+                    <a href="#" class="text-gray-600 hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-600 hover:text-white transition-colors">Ethics Board</a>
+                    <a href="#" class="text-gray-600 hover:text-white transition-colors">Terms of Use</a>
+                </div>
+                <div class="flex flex-col justify-start">
+                    <span class="font-mono text-[10px] text-gray-600 mb-6 tracking-widest uppercase">Clearance Request</span>
+                    <form class="w-full">
+                        <div class="relative border-b border-white/20 pb-2">
+                            <input type="email" placeholder="ENTER_EMAIL_ADDRESS" class="w-full bg-transparent text-xs font-mono text-white placeholder-gray-700 focus:outline-none uppercase tracking-wider">
+                            <button type="button" class="absolute right-0 bottom-2 text-white hover:text-gray-400 transition-colors text-lg">></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center mt-8 font-mono text-[10px] text-gray-600 uppercase tracking-widest border-t border-white/5 pt-4">
+                <span>© 2025 Fragma Systems.</span>
+                <div class="flex items-center gap-2 mt-2 md:mt-0">
+                    <span class="w-1 h-1 bg-green-900 rounded-full"></span>
+                    <span>System Normal</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Elegant Reveal Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15 // Start revealing when 15% visible
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Optional: observer.unobserve(entry.target); // Keep animating if user scrolls back up/down? usually nicer to run once or keep active
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

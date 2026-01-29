@@ -76,21 +76,46 @@
         .close-x { transition: transform 0.3s ease, color 0.3s ease; }
         .close-x:hover { transform: rotate(90deg); color: #fff; }
 
+        /* --- MOBILE MENU ANIMATION --- */
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .menu-closed { transform: translateY(-100%); }
+        .menu-open { transform: translateY(0); }
+
+        /* --- MAP DOTS ANIMATION --- */
+        .map-dot {
+            position: absolute;
+            width: 4px; height: 4px;
+            background-color: #EB5335;
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(235, 83, 53, 0.8);
+            animation: pulse-dot 3s infinite ease-in-out;
+        }
+        .map-dot:nth-child(odd) { animation-duration: 4s; }
+        .map-dot:nth-child(3n) { animation-delay: 1s; }
+        .map-dot:nth-child(4n) { animation-delay: 2s; }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
     </style>
 </head>
 <body class="font-sans font-light selection:bg-fragma-orange selection:text-black bg-fragma-black text-fragma-white">
 
     <div id="cursor"></div>
 
-    <header class="fixed top-0 w-full z-50 backdrop-blur-md border-b border-white/5 h-20 flex items-center px-6 md:px-12 justify-between">
-        <a href="index.html" class="block w-32 cursor-none hover:opacity-80 transition-opacity">
+    <header class="fixed top-0 w-full z-50 backdrop-blur-md border-b border-white/5 h-20 flex items-center px-6 md:px-12 justify-between bg-black/50">
+        <a href="index.html" class="block w-32 cursor-none hover:opacity-80 transition-opacity z-50 relative">
             <img src="fragma-logo.png" alt="FRAGMA" class="h-10 w-auto object-contain"> 
         </a>
         
         <nav class="hidden md:flex gap-12 font-mono text-xs tracking-widest text-gray-400">
-            <a href="products.html" class="hover:text-white transition-colors">PRODUCTS</a>
-            <a href="technology.html" class="hover:text-white transition-colors">TECHNOLOGY</a>
-            <a href="about.html" class="hover:text-white transition-colors">ABOUT</a>
+            <a href="products.html" class="hover:text-fragma-white transition-colors">PRODUCTS</a>
+            <a href="technology.html" class="hover:text-fragma-white transition-colors">TECHNOLOGY</a>
+            <a href="about.html" class="hover:text-fragma-white transition-colors">ABOUT</a>
         </nav>
 
         <div class="hidden md:block">
@@ -98,26 +123,41 @@
                 REACH US <span class="text-[10px]">↗</span>
             </a>
         </div>
+
+        <button id="menu-btn" class="md:hidden z-50 text-white font-mono text-xs tracking-widest uppercase focus:outline-none" onclick="toggleMenu()">
+            Menu
+        </button>
     </header>
 
-    <section class="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-fragma-black">
-        <video autoplay muted loop playsinline class="video-bg">
+    <div id="mobile-menu" class="fixed inset-0 bg-fragma-black z-40 flex flex-col justify-center items-center gap-8 menu-closed md:hidden">
+        <a href="products.html" class="text-2xl font-light text-white tracking-tight" onclick="toggleMenu()">Products</a>
+        <a href="technology.html" class="text-2xl font-light text-white tracking-tight" onclick="toggleMenu()">Technology</a>
+        <a href="about.html" class="text-2xl font-light text-white tracking-tight" onclick="toggleMenu()">About</a>
+        <div class="w-12 h-[1px] bg-white/20 my-4"></div>
+        <a href="#" target="_blank" class="font-mono text-xs text-fragma-orange tracking-widest uppercase">Reach Us ↗</a>
+    </div>
+
+    <section class="relative w-full pt-20 md:pt-0 md:h-screen flex flex-col items-center justify-center overflow-hidden bg-fragma-black">
+        
+        <video autoplay muted loop playsinline class="w-full h-auto relative z-0 md:absolute md:inset-0 md:h-full md:object-cover">
             <source src="video_segnaposto_1.mp4" type="video/mp4">
         </video>
-        <div class="absolute inset-0 bg-black/40 z-0"></div>
-        <div class="absolute bottom-12 z-10 font-mono text-[10px] text-gray-400 tracking-widest animate-pulse">
+
+        <div class="absolute inset-0 bg-black/20 z-10 pointer-events-none"></div>
+
+        <div class="absolute bottom-6 md:bottom-12 z-20 font-mono text-[10px] text-gray-400 tracking-widest animate-pulse">
              SCROLL TO DECRYPT ↓
         </div>
     </section>
 
-    <section class="py-32 px-6 md:px-12 relative border-b border-white/5 bg-fragma-black">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 items-start">
+    <section class="py-24 md:py-32 px-6 md:px-12 relative border-b border-white/5 bg-fragma-black">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
             <div class="md:col-span-3 flex flex-col pt-2 reveal">
                 <span class="font-mono text-[10px] text-gray-500 block mb-4 tracking-widest">01 // CONTEXT</span>
                 <h3 class="text-xl font-light tracking-tight text-white uppercase">Cognitive<br>Warfare</h3>
             </div>
-            <div class="md:col-span-9 space-y-16">
-                <p class="text-3xl md:text-5xl font-light leading-tight text-gray-300 reveal">
+            <div class="md:col-span-9 space-y-12 md:space-y-16">
+                <p class="text-2xl md:text-5xl font-light leading-tight text-gray-300 reveal">
                     We are an innovative company developing <strong class="text-white font-medium">engineered linguistic weaponry.</strong> We transform language into strategic technology for those who see words as means of power, defense, and the <strong class="text-white font-medium">construction of reality. </strong>
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12 border-t border-white/10 reveal">
@@ -138,7 +178,7 @@
         </div>
     </section>
 
-   <section class="py-24 px-6 md:px-12 border-b border-white/5 overflow-hidden relative">
+    <section class="py-24 px-6 md:px-12 border-b border-white/5 overflow-hidden relative">
         <div class="max-w-7xl mx-auto relative z-10">
             <span class="font-mono text-[10px] text-gray-500 block mb-8 tracking-widest reveal">02 // PARAMETRIC LOGIC</span>
             <div class="flex justify-between items-end reveal">
@@ -147,31 +187,28 @@
                 </h3>
             </div>
         </div>
-
-        <div class="absolute inset-0 top-1/2 -translate-y-1/2 w-full h-96 opacity-50 pointer-events-none">
+        <div class="absolute inset-0 top-1/2 -translate-y-1/2 w-full h-96 opacity-40 pointer-events-none">
             <svg class="w-full h-full filament-lines" viewBox="0 0 1000 400" preserveAspectRatio="none">
                 <line x1="0" y1="50" x2="1000" y2="350" stroke="white" stroke-width="0.6" opacity="0.5" />
                 <line x1="0" y1="50" x2="1000" y2="250" stroke="white" stroke-width="0.6" opacity="0.6" />
                 <line x1="0" y1="50" x2="1000" y2="150" stroke="white" stroke-width="0.6" opacity="0.7" />
                 <line x1="0" y1="50" x2="1000" y2="50" stroke="white" stroke-width="0.6" opacity="0.4" />
-                
                 <line x1="0" y1="200" x2="1000" y2="380" stroke="white" stroke-width="0.6" opacity="0.5" />
                 <line x1="0" y1="200" x2="1000" y2="300" stroke="white" stroke-width="0.6" opacity="0.6" />
-                <line x1="0" y1="200" x2="1000" y2="200" stroke="white" stroke-width="1.0" opacity="0.8" /> <line x1="0" y1="200" x2="1000" y2="100" stroke="white" stroke-width="0.6" opacity="0.6" />
+                <line x1="0" y1="200" x2="1000" y2="200" stroke="white" stroke-width="1.0" opacity="0.8" />
+                <line x1="0" y1="200" x2="1000" y2="100" stroke="white" stroke-width="0.6" opacity="0.6" />
                 <line x1="0" y1="200" x2="1000" y2="20" stroke="white" stroke-width="0.6" opacity="0.5" />
-                
                 <line x1="0" y1="350" x2="1000" y2="350" stroke="white" stroke-width="0.6" opacity="0.4" />
                 <line x1="0" y1="350" x2="1000" y2="250" stroke="white" stroke-width="0.6" opacity="0.7" />
                 <line x1="0" y1="350" x2="1000" y2="150" stroke="white" stroke-width="0.6" opacity="0.6" />
                 <line x1="0" y1="350" x2="1000" y2="50" stroke="white" stroke-width="0.6" opacity="0.5" />
-                
                 <line x1="200" y1="100" x2="800" y2="300" stroke="white" stroke-width="0.4" opacity="0.3" />
                 <line x1="200" y1="300" x2="800" y2="100" stroke="white" stroke-width="0.4" opacity="0.3" />
             </svg>
         </div>
     </section>
 
-    <section class="py-32 bg-fragma-black border-b border-white/5 overflow-hidden relative">
+    <section class="py-24 md:py-32 bg-fragma-black border-b border-white/5 overflow-hidden relative">
         <div class="max-w-[1920px] mx-auto px-6 md:px-12 relative group/section">
             <div class="mb-12 flex items-end justify-between max-w-7xl mx-auto">
                 <div class="reveal">
@@ -181,13 +218,13 @@
             </div>
 
             <div class="relative w-full reveal">
-                <button class="carousel-nav-btn left hover-target" onclick="document.getElementById('carousel-track').scrollBy({left: -624, behavior: 'smooth'})">←</button>
-                <button class="carousel-nav-btn right hover-target" onclick="document.getElementById('carousel-track').scrollBy({left: 624, behavior: 'smooth'})">→</button>
+                <button class="hidden md:block carousel-nav-btn left hover-target" onclick="document.getElementById('carousel-track').scrollBy({left: -624, behavior: 'smooth'})">←</button>
+                <button class="hidden md:block carousel-nav-btn right hover-target" onclick="document.getElementById('carousel-track').scrollBy({left: 624, behavior: 'smooth'})">→</button>
 
                 <div id="carousel-track" class="flex overflow-x-auto gap-6 pb-8 scrollbar-hide snap-x snap-mandatory px-0 md:px-0">
                     
                     <div onclick="openNews('Neural Network Expansion v2.4', '12.04.2025', 'carousel_1.jpg', 'Deployment of the new recursive neural architecture has increased semantic processing speed by 400%. The update allows for real-time sentiment shifting across distributed social clusters with zero latency.')" 
-                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[500px] relative snap-center group carousel-card bg-[#080808]">
+                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[400px] md:h-[500px] relative snap-center group carousel-card bg-[#080808]">
                         <img src="carousel_1.jpg" alt="Update 1" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500 grayscale group-hover:grayscale-0">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 w-full p-8 md:p-10">
@@ -202,7 +239,7 @@
                     </div>
 
                     <div onclick="openNews('Global Sentiment Vector Shift', '10.04.2025', 'carousel_2.jpg', 'Strategic adjustment of global sentiment vectors has successfully mitigated potential unrest in Sector 4. The vector shift algorithm now predicts social volatility with 94% accuracy.')"
-                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[500px] relative snap-center group carousel-card bg-[#080808]">
+                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[400px] md:h-[500px] relative snap-center group carousel-card bg-[#080808]">
                         <img src="carousel_2.jpg" alt="Update 2" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500 grayscale group-hover:grayscale-0">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 w-full p-8 md:p-10">
@@ -217,7 +254,7 @@
                     </div>
 
                     <div onclick="openNews('Rhetorical Firewall Active', '01.04.2025', 'carousel_3.jpg', 'Activation of the defensive Rhetorical Firewall is complete. This system automatically detects and neutralizes hostile semantic structures before they can take root in the public consciousness.')"
-                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[500px] relative snap-center group carousel-card bg-[#080808]">
+                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[400px] md:h-[500px] relative snap-center group carousel-card bg-[#080808]">
                         <img src="carousel_3.jpg" alt="Update 3" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500 grayscale group-hover:grayscale-0">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 w-full p-8 md:p-10">
@@ -232,7 +269,7 @@
                     </div>
 
                     <div onclick="openNews('Protocol 9: Syntax Stabilization', '28.03.2025', 'carousel_4.jpg', 'Successful implementation of Protocol 9 has reduced semantic drift in high-volatility zones by 85%. The syntax stabilization grid is now fully operational across European sectors, ensuring narrative consistency even during peak information overload.')"
-                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[500px] relative snap-center group carousel-card bg-[#080808]">
+                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[400px] md:h-[500px] relative snap-center group carousel-card bg-[#080808]">
                         <img src="carousel_4.jpg" alt="Update 4" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500 grayscale group-hover:grayscale-0">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 w-full p-8 md:p-10">
@@ -247,7 +284,7 @@
                     </div>
 
                     <div onclick="openNews('Cognitive Latency Milestone', '22.03.2025', 'carousel_5.jpg', 'Optimization of the core rendering engine has achieved a new milestone. Narrative injection now occurs within the threshold of subconscious perception (under 15ms), bypassing critical analysis filters in the subject entirely.')"
-                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[500px] relative snap-center group carousel-card bg-[#080808]">
+                         class="cursor-pointer block min-w-[85vw] md:min-w-[600px] h-[400px] md:h-[500px] relative snap-center group carousel-card bg-[#080808]">
                         <img src="carousel_5.jpg" alt="Update 5" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500 grayscale group-hover:grayscale-0">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 w-full p-8 md:p-10">
@@ -267,16 +304,16 @@
         </div>
     </section>
 
-    <section class="py-32 px-6 md:px-12 bg-fragma-black relative border-b border-white/5">
+    <section class="py-24 md:py-32 px-6 md:px-12 bg-fragma-black relative border-b border-white/5">
         <div class="max-w-7xl mx-auto relative z-10">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8 reveal">
                 <div>
                     <span class="font-mono text-[10px] text-gray-500 tracking-widest block mb-4">04 // GLOBAL TRACKING</span>
                     <h2 class="text-3xl md:text-5xl font-light tracking-tighter text-white uppercase">Active<br>Fragma users</h2>
                 </div>
-                <div class="font-mono text-[10px] text-right text-gray-500 space-y-2">
-                    <div class="flex items-center gap-2 justify-end">
-                        <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                <div class="font-mono text-[10px] text-left md:text-right text-gray-500 space-y-2">
+                    <div class="flex items-center gap-2 justify-start md:justify-end">
+                        <span class="w-2 h-2 bg-fragma-orange rounded-full animate-pulse"></span>
                         LIVE MONITORING
                     </div>
                     <div>14,092 NODES ONLINE</div>
@@ -284,13 +321,32 @@
             </div>
 
             <div class="relative w-full max-w-5xl mx-auto mt-8 reveal">
-                <img src="mondo.svg" alt="Global Map" class="w-full h-auto opacity-50 block relative z-0">
+                
+                <img src="mondo.svg" 
+                     alt="Global Map" 
+                     class="w-full h-auto block relative z-0 brightness-0 invert opacity-50">
+                
                 <div class="absolute inset-0 w-full h-full z-10">
-                    <div class="map-dot" style="left: 18%; top: 32%;"></div> <div class="map-dot" style="left: 26%; top: 34%;"></div> <div class="map-dot" style="left: 24%; top: 28%;"></div> <div class="map-dot" style="left: 32%; top: 65%;"></div> <div class="map-dot" style="left: 28%; top: 75%;"></div> <div class="map-dot" style="left: 49%; top: 26%;"></div> <div class="map-dot" style="left: 51%; top: 28%;"></div> <div class="map-dot" style="left: 53%; top: 25%;"></div> <div class="map-dot" style="left: 60%; top: 24%;"></div> <div class="map-dot" style="left: 72%; top: 35%;"></div> <div class="map-dot" style="left: 82%; top: 32%;"></div> <div class="map-dot" style="left: 85%; top: 36%;"></div> <div class="map-dot" style="left: 79%; top: 42%;"></div> <div class="map-dot" style="left: 55%; top: 40%;"></div> <div class="map-dot" style="left: 50%; top: 55%;"></div> <div class="map-dot" style="left: 90%; top: 75%;"></div> </div>
-            </div>
+                    <div class="map-dot" style="left: 18%; top: 32%;"></div>
+                    <div class="map-dot" style="left: 26%; top: 34%;"></div>
+                    <div class="map-dot" style="left: 24%; top: 28%;"></div>
+                    <div class="map-dot" style="left: 32%; top: 65%;"></div>
+                    <div class="map-dot" style="left: 28%; top: 75%;"></div>
+                    <div class="map-dot" style="left: 49%; top: 26%;"></div>
+                    <div class="map-dot" style="left: 51%; top: 28%;"></div>
+                    <div class="map-dot" style="left: 53%; top: 25%;"></div>
+                    <div class="map-dot" style="left: 60%; top: 24%;"></div>
+                    <div class="map-dot" style="left: 72%; top: 35%;"></div>
+                    <div class="map-dot" style="left: 82%; top: 32%;"></div>
+                    <div class="map-dot" style="left: 85%; top: 36%;"></div>
+                    <div class="map-dot" style="left: 79%; top: 42%;"></div>
+                    <div class="map-dot" style="left: 55%; top: 40%;"></div>
+                    <div class="map-dot" style="left: 50%; top: 55%;"></div>
+                    <div class="map-dot" style="left: 90%; top: 75%;"></div>
+                </div>
             </div>
             
-            <div class="flex gap-8 mt-4 font-mono text-[10px] text-gray-600 justify-center opacity-60 reveal">
+            <div class="flex flex-wrap gap-4 md:gap-8 mt-8 font-mono text-[10px] text-gray-600 justify-center opacity-60 reveal">
                 <span>LATENCY: 12ms</span>
                 <span>PACKET LOSS: 0.00%</span>
                 <span>ENCRYPTION: AES-256</span>
@@ -298,7 +354,7 @@
         </div>
     </section>
 
-    <section class="py-32 px-6 md:px-12 bg-fragma-black">
+    <section class="py-24 md:py-32 px-6 md:px-12 bg-fragma-black">
         <div class="max-w-7xl mx-auto">
             <span class="font-mono text-[10px] text-gray-500 block mb-12 tracking-widest reveal">05 // DEPLOYED OPERATIONS</span>
             
@@ -466,12 +522,10 @@
 
                     <div class="space-y-6 text-gray-400 font-light text-sm leading-relaxed text-justify">
                         <p id="modal-abstract" class="text-white font-normal text-base"></p>
-                        
                         <div id="modal-analysis" class="space-y-6 opacity-80">
                             </div>
                     </div>
-
-                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -483,6 +537,20 @@
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if(menu.classList.contains('menu-closed')) {
+                menu.classList.remove('menu-closed');
+                menu.classList.add('menu-open');
+                document.getElementById('menu-btn').innerText = 'Close';
+            } else {
+                menu.classList.remove('menu-open');
+                menu.classList.add('menu-closed');
+                document.getElementById('menu-btn').innerText = 'Menu';
+            }
+        }
 
         // Reveal Observer
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
@@ -496,8 +564,6 @@
         document.querySelectorAll('.reveal').forEach(el => { observer.observe(el); });
 
         // --- INTELLIGENCE MODAL LOGIC ---
-        
-        // Testo di riempimento per far sembrare l'articolo lungo e serio
         const analysisText = `
             <p><strong>Operational Analysis:</strong> The deployment initiated a cascade of semantic re-indexing across the targeted cluster. Preliminary data suggests a 99.8% coherence rate in sentiment alignment. The underlying syntax architecture successfully navigated the rhetorical defenses of the subject group, utilizing recursive linguistic patterns to bypass cognitive resistance.</p>
             <p>This update represents a significant milestone in our roadmap towards total narrative stability. By leveraging the new neural pathways established in v2.4, we can now predict and neutralize counter-narratives with sub-millisecond latency. The ethical compliance module remained active throughout the engagement, ensuring all operations fell within the parameters of the revised Fragma Protocol.</p>
@@ -510,18 +576,18 @@
             document.getElementById('modal-date').innerText = date;
             document.getElementById('modal-img').src = img;
             document.getElementById('modal-abstract').innerText = abstract;
-            document.getElementById('modal-analysis').innerHTML = analysisText; // Inietta il testo lungo
+            document.getElementById('modal-analysis').innerHTML = analysisText;
             
             modal.classList.remove('hidden-modal');
             modal.classList.add('visible-modal');
-            document.body.style.overflow = 'hidden'; // Blocca scroll pagina
+            document.body.style.overflow = 'hidden';
         }
 
         function closeNews() {
             const modal = document.getElementById('news-modal');
             modal.classList.remove('visible-modal');
             modal.classList.add('hidden-modal');
-            document.body.style.overflow = 'auto'; // Sblocca scroll pagina
+            document.body.style.overflow = 'auto';
         }
     </script>
 </body>

@@ -1,11 +1,74 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FRAGMA | Products Network</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="products.css">
+    
+    <link rel="stylesheet" href="products.css"> 
+    
+    <style>
+        /* Setup generale */
+        body { background-color: #010101; color: #FBFBFB; }
+
+        /* Cursore (solo desktop) */
+        #cursor {
+            width: 20px; height: 20px; background: #EB5335; border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999;
+            transform: translate(-50%, -50%); mix-blend-mode: difference; display: none;
+        }
+        @media (min-width: 768px) { #cursor { display: block; } }
+
+        /* Mobile Menu Animazione */
+        #mobile-menu { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .menu-closed { transform: translateY(-100%); }
+        .menu-open { transform: translateY(0); }
+
+        /* --- STILI SCHEDA MOBILE (DATA SHEET STYLE) --- */
+        .mob-datasheet {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 4rem;
+            margin-bottom: 4rem;
+        }
+        .mob-label {
+            font-family: 'Input Mono', monospace; font-size: 0.65rem; color: #EB5335;
+            letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; display: block;
+        }
+        .mob-title {
+            font-family: 'TT Hoves Pro', sans-serif; font-size: 2.5rem; line-height: 1;
+            font-weight: 300; color: #fff; margin-bottom: 1.5rem;
+        }
+        .mob-body {
+            font-family: 'TT Hoves Pro', sans-serif; font-size: 1rem; line-height: 1.6;
+            color: #999; font-weight: 300; text-align: justify; margin-bottom: 2rem;
+        }
+        .mob-specs-table {
+            width: 100%; border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .mob-specs-row {
+            display: flex; justify-content: space-between; padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-family: 'Input Mono', monospace; font-size: 0.75rem;
+        }
+        .mob-specs-key { color: #666; text-transform: uppercase; }
+        .mob-specs-val { color: #fff; text-align: right; }
+        
+        .mob-img-container {
+            width: 100%; aspect-ratio: 16/9; background: #050505;
+            margin-bottom: 2rem; overflow: hidden; position: relative;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Scroll margin per la navbar flottante */
+        .scroll-target { scroll-margin-top: 100px; }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+    </style>
+
     <script type="importmap">
         {
             "imports": {
@@ -15,16 +78,17 @@
         }
     </script>
 </head>
-<body>
+<body class="selection:bg-[#EB5335] selection:text-black">
+    
     <div id="cursor"></div>
 
-    <header class="fixed top-0 w-full z-50 backdrop-blur-md border-b border-white/5 h-20 flex items-center px-6 md:px-12 justify-between">
-        <a href="index.html" class="block w-32 cursor-none hover:opacity-80 transition-opacity">
+    <header class="fixed top-0 w-full z-50 backdrop-blur-md border-b border-white/5 h-20 flex items-center px-6 md:px-12 justify-between bg-black/50">
+        <a href="index.html" class="block w-32 cursor-none hover:opacity-80 transition-opacity z-50 relative">
             <img src="fragma-logo.png" alt="FRAGMA" class="h-10 w-auto object-contain"> 
         </a>
         
         <nav class="hidden md:flex gap-12 font-mono text-xs tracking-widest text-gray-400">
-            <a href="products.html" class="hover:text-white transition-colors">PRODUCTS</a>
+            <a href="products.html" class="text-white transition-colors">PRODUCTS</a>
             <a href="technology.html" class="hover:text-white transition-colors">TECHNOLOGY</a>
             <a href="about.html" class="hover:text-white transition-colors">ABOUT</a>
         </nav>
@@ -34,27 +98,209 @@
                 REACH US <span class="text-[10px]">↗</span>
             </a>
         </div>
+
+        <button id="menu-btn" class="md:hidden z-50 text-white font-mono text-xs tracking-widest uppercase focus:outline-none" onclick="toggleMenu()">
+            Menu
+        </button>
     </header>
 
-    <div class="split-container">
-        <div id="canvas-container"></div>
+    <div id="mobile-menu" class="fixed inset-0 bg-[#010101] z-40 flex flex-col justify-center items-center gap-8 menu-closed md:hidden">
+        <a href="products.html" class="text-2xl font-light text-white tracking-tight" onclick="toggleMenu()">Products</a>
+        <a href="technology.html" class="text-2xl font-light text-white tracking-tight" onclick="toggleMenu()">Technology</a>
+        <a href="about.html" class="text-2xl font-light text-white tracking-tight" onclick="toggleMenu()">About</a>
+        <div class="w-12 h-[1px] bg-white/20 my-4"></div>
+        <a href="#" target="_blank" class="font-mono text-xs text-fragma-orange tracking-widest uppercase">Reach Us ↗</a>
+    </div>
 
-        <aside id="data-panel">
-            <div id="empty-state" class="panel-empty-state">
-                <div style="font-size: 24px; margin-bottom: 20px; opacity: 0.3;">⬡</div>
-                SELECT A NODE FROM THE NETWORK<br>TO DECRYPT DATA
+    <main class="md:hidden pt-32 px-6 pb-32">
+        
+        <h1 class="font-sans text-4xl font-light text-white mb-12 reveal">Operational<br>Inventory</h1>
+
+        <article id="mob-p1" class="mob-datasheet scroll-target reveal">
+            <div class="mob-img-container">
+                <img src="syntax_f1.jpg" alt="Syntax F1" class="w-full h-full object-cover">
             </div>
-            <div id="content-wrapper" class="panel-content"></div>
-        </aside>
+            
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="mob-label">HARDWARE // INTERFACE</span>
+                    <h2 class="mob-title">Syntax F1</h2>
+                </div>
+                <div class="font-mono text-[10px] text-[#EB5335] border border-[#EB5335] px-2 py-1 mt-1">
+                    ONLINE
+                </div>
+            </div>
+
+            <p class="mob-body">
+                The first physical interface designed specifically for rhetorical engineering. The Syntax F1 allows operators to "feel" the semantic weight of a sentence before deployment.
+                <br><br>
+                Using advanced haptic feedback actuators, the device translates linguistic density into physical resistance, providing a tactile layer to the editing process. It is currently deployed in all Sector 7 active containment units.
+            </p>
+
+            <div class="mob-specs-table">
+                <div class="mob-specs-row">
+                    <span class="mob-specs-key">Tactile Resolution</span>
+                    <span class="mob-specs-val">4096 Points</span>
+                </div>
+                <div class="mob-specs-row">
+                    <span class="mob-specs-key">Input Latency</span>
+                    <span class="mob-specs-val">1ms</span>
+                </div>
+                <div class="mob-specs-row">
+                    <span class="mob-specs-key">Material</span>
+                    <span class="mob-specs-val">Anodized Alum.</span>
+                </div>
+                <div class="mob-specs-row">
+                    <span class="mob-specs-key">Connection</span>
+                    <span class="mob-specs-val">Encrypted USB-C</span>
+                </div>
+            </div>
+        </article>
+
+
+        <article id="mob-p2" class="mob-datasheet scroll-target reveal">
+            <div class="mob-img-container">
+                <img src="synapse.jpg" alt="Synapse Overlay" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="mob-label">SOFTWARE // DEFENSE</span>
+                    <h2 class="mob-title">Synapse</h2>
+                </div>
+                <div class="font-mono text-[10px] text-[#EB5335] border border-[#EB5335] px-2 py-1 mt-1">
+                    ACTIVE
+                </div>
+            </div>
+
+            <p class="mob-body">
+                A kernel-level rootkit designed for corporate narrative defense. Synapse creates an invisible semantic layer over existing communication channels (Slack, Teams, Email).
+                <br><br>
+                It filters hostile narratives and reinforces internal consensus protocols in real-time, utilizing a proprietary NLP engine that detects sentiment drift with 99.4% accuracy.
+            </p>
+
+            <div class="mob-specs-table">
+                <div class="mob-specs-row">
+                    <span class="mob-specs-key">Deployment</span>
+                    <span class="mob-specs-val">Silent / Remote</span>
+                </div>
+                <div class="mob-specs-row">
+                    <span class="mob-specs-key">Encryption</span>
+                    <span class="mob-specs-val">Post-Quantum</span>
+                </div>
+                <div class="mob-specs-row">
+                    <span class="mob-specs-key">Core Usage</span>
+                    <span class="mob-specs-val">&lt; 1% CPU</span>
+                </div>
+                <div class="mob-specs-row">
+                    <span class="mob-specs-key">License</span>
+                    <span class="mob-specs-val">Enterprise Only</span>
+                </div>
+            </div>
+        </article>
+
+
+        <article id="mob-p3" class="mob-datasheet scroll-target reveal" style="border-bottom: none;">
+            <div class="mob-img-container">
+                <img src="neuro_lexis.jpg" alt="Neuro Lexis" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="mob-label">SENSOR // NANODUST</span>
+                    <h2 class="mob-title">Neuro-Lexis</h2>
+                </div>
+                <div class="font-mono text-[10px] text-[#EB5335] border border-[#EB5335] px-2 py-1 mt-1">
+                    CLASSIFIED
+                </div>
+            </div>
+
+            <p class="mob-body">
+                A distributed sensor network composed of smart-dust particles suspended in the atmosphere. Neuro-Lexis maps the emotional temperature of a room or city block.
+                <br><br>
+                By analyzing micro-vibrations in the air caused by human speech patterns, it can reconstruct semantic intent without recording audio, bypassing standard privacy regulations.
+            </p>
+
+            <div class="mob-specs-table">
+                <div class="mob-specs-row">
+                    <span class="mob-specs-key">Range Radius</span>
+                    <span class="mob-specs-val">500m</span>
+                </div>
+                <div class="mob-specs-row">
+                    <span class="mob-specs-key">Sensitivity</span>
+                    <span class="mob-specs-val">-120dB</span>
+                </div>
+                <div class="mob-specs-row">
+                    <span class="mob-specs-key">Power Source</span>
+                    <span class="mob-specs-val">RF Harvesting</span>
+                </div>
+                <div class="mob-specs-row">
+                    <span class="mob-specs-key">Protocol</span>
+                    <span class="mob-specs-val">Mesh Network</span>
+                </div>
+            </div>
+        </article>
+
+        <div class="mt-12 pt-8 border-t border-white/10 text-center">
+            <p class="font-mono text-[10px] text-gray-600">FRAGMA SYSTEMS // SECTOR 7</p>
+        </div>
+
+        <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-[#111]/90 backdrop-blur-md border border-white/20 rounded-full px-6 py-3 flex gap-6 shadow-2xl">
+            <a href="#mob-p1" class="font-mono text-xs text-gray-400 hover:text-white transition-colors tracking-widest">01</a>
+            <div class="w-[1px] h-3 bg-white/20 my-auto"></div>
+            <a href="#mob-p2" class="font-mono text-xs text-gray-400 hover:text-white transition-colors tracking-widest">02</a>
+            <div class="w-[1px] h-3 bg-white/20 my-auto"></div>
+            <a href="#mob-p3" class="font-mono text-xs text-gray-400 hover:text-white transition-colors tracking-widest">03</a>
+        </div>
+
+    </main>
+
+
+    <div class="hidden md:block">
+        <div class="split-container">
+            <div id="canvas-container"></div>
+    
+            <aside id="data-panel">
+                <div id="empty-state" class="panel-empty-state">
+                    <div style="font-size: 24px; margin-bottom: 20px; opacity: 0.3;">⬡</div>
+                    SELECT A NODE FROM THE NETWORK<br>TO DECRYPT DATA
+                </div>
+                <div id="content-wrapper" class="panel-content"></div>
+            </aside>
+        </div>
     </div>
 
     <script type="module" src="products.js"></script>
+    
     <script>
+        // Custom Cursor
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if(menu.classList.contains('menu-closed')) {
+                menu.classList.remove('menu-closed');
+                menu.classList.add('menu-open');
+                document.getElementById('menu-btn').innerText = 'Close';
+            } else {
+                menu.classList.remove('menu-open');
+                menu.classList.add('menu-closed');
+                document.getElementById('menu-btn').innerText = 'Menu';
+            }
+        }
+
+        // Reveal Animation Observer (per Mobile)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
-</html>
+</html></s>

@@ -35,26 +35,27 @@
         }
 
         /* --- TYPOGRAPHY --- */
-        
         .page-title {
-            font-size: clamp(3.5rem, 6vw, 7rem);
+            font-size: clamp(3rem, 6vw, 7rem); /* Ridotto leggermente il minimo per mobile */
             line-height: 0.9;
             font-weight: 300;
             letter-spacing: -0.04em;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
             color: #fff;
         }
 
         .section-title {
-            font-size: 2.2rem;
+            font-size: 1.8rem; /* Adattato per mobile */
             line-height: 1.1;
             font-weight: 400;
             letter-spacing: -0.02em;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             color: #fff;
         }
+        @media (min-width: 768px) {
+            .section-title { font-size: 2.2rem; margin-bottom: 2rem; }
+        }
 
-        /* Etichette Meta: Piccole, Bianche, Sobrie */
         .meta-label {
             font-family: 'Input Mono', monospace;
             font-size: 0.7rem;
@@ -62,7 +63,7 @@
             letter-spacing: 0.15em;
             color: #fff; 
             opacity: 0.5;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             display: block;
             border-top: 1px solid rgba(255,255,255,0.2);
             padding-top: 1rem;
@@ -70,8 +71,8 @@
         }
 
         .body-text {
-            font-size: 1.05rem; 
-            line-height: 1.7; 
+            font-size: 1rem; 
+            line-height: 1.6; 
             color: #999;
             font-weight: 300;
             margin-bottom: 1.5rem;
@@ -88,30 +89,33 @@
             width: 100%;
             height: auto;
             display: block;
-            /* Mix Blend Mode per integrare i neri, rimuovi se le immagini sono già PNG trasparenti */
             mix-blend-mode: screen; 
             opacity: 0.9;
             transition: opacity 0.5s ease;
         }
         
+        .invert-image {
+            filter: invert(1) grayscale(100%);
+            mix-blend-mode: screen;
+        }
 
-        /* --- ELEGANT REVEAL ANIMATION --- */
+        /* --- REVEAL ANIMATION --- */
         .reveal {
             opacity: 0;
-            transform: translateY(40px); /* Parte da 40px più in basso */
-            /* Curva di bezier per un movimento fluido e "pesante" */
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); 
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); 
         }
-        
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Ritardi per effetti a cascata */
-        .delay-100 { transition-delay: 0.1s; }
-        .delay-200 { transition-delay: 0.2s; }
-        .delay-300 { transition-delay: 0.3s; }
+        /* --- MOBILE MENU --- */
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .menu-closed { transform: translateY(-100%); }
+        .menu-open { transform: translateY(0); }
 
     </style>
 </head>
@@ -119,15 +123,15 @@
 
     <div id="cursor"></div>
 
-    <header class="fixed top-0 w-full z-50 backdrop-blur-md border-b border-white/5 h-20 flex items-center px-6 md:px-12 justify-between">
-        <a href="index.html" class="block w-32 cursor-none hover:opacity-80 transition-opacity">
+    <header class="fixed top-0 w-full z-50 backdrop-blur-md border-b border-white/5 h-20 flex items-center px-6 md:px-12 justify-between bg-black/50">
+        <a href="index.html" class="block w-32 cursor-none hover:opacity-80 transition-opacity z-50 relative">
             <img src="fragma-logo.png" alt="FRAGMA" class="h-10 w-auto object-contain"> 
         </a>
         
         <nav class="hidden md:flex gap-12 font-mono text-xs tracking-widest text-gray-400">
-            <a href="products.html" class="hover:text-white transition-colors">PRODUCTS</a>
-            <a href="technology.html" class="hover:text-white transition-colors">TECHNOLOGY</a>
-            <a href="about.html" class="hover:text-white transition-colors">ABOUT</a>
+            <a href="products.html" class="hover:text-fragma-white transition-colors">PRODUCTS</a>
+            <a href="technology.html" class="text-white">TECHNOLOGY</a>
+            <a href="about.html" class="hover:text-fragma-white transition-colors">ABOUT</a>
         </nav>
 
         <div class="hidden md:block">
@@ -135,122 +139,134 @@
                 REACH US <span class="text-[10px]">↗</span>
             </a>
         </div>
+
+        <button id="menu-btn" class="md:hidden z-50 text-white font-mono text-xs tracking-widest uppercase focus:outline-none" onclick="toggleMenu()">
+            Menu
+        </button>
     </header>
 
-    <main class="pt-32 pb-32 px-6 md:px-12 max-w-[1920px] mx-auto">
+    <div id="mobile-menu" class="fixed inset-0 bg-fragma-black z-40 flex flex-col justify-center items-center gap-8 menu-closed md:hidden">
+        <a href="products.html" class="text-2xl font-light text-white tracking-tight" onclick="toggleMenu()">Products</a>
+        <a href="technology.html" class="text-2xl font-light text-white tracking-tight" onclick="toggleMenu()">Technology</a>
+        <a href="about.html" class="text-2xl font-light text-white tracking-tight" onclick="toggleMenu()">About</a>
+        <div class="w-12 h-[1px] bg-white/20 my-4"></div>
+        <a href="#" target="_blank" class="font-mono text-xs text-fragma-orange tracking-widest uppercase">Reach Us ↗</a>
+    </div>
+
+    <main class="pt-32 pb-24 px-6 md:px-12 max-w-[1920px] mx-auto">
 
         <h1 class="page-title reveal">
-            System Architecture
+            System<br class="md:hidden"> Architecture
         </h1>
 
-        <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-40 items-start border-b border-white/5 pb-20">
+        <section class="flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-16 mb-32 items-start border-b border-white/5 pb-16">
             
-            <div class="lg:col-span-7 reveal">
-                <img src="tech_context.jpg" alt="Context Dimensions" class="tech-visual">
+            <div class="w-full lg:col-span-7 reveal order-1 lg:order-1">
+                <img src="tech_context.jpg" alt="Context Dimensions" class="tech-visual w-full h-auto">
             </div>
 
-            <div class="lg:col-span-5 sticky top-32">
-                <span class="meta-label reveal">FIG 01 // OPERATIONAL STACK</span>
+            <div class="w-full lg:col-span-5 relative lg:sticky lg:top-32 reveal order-2 lg:order-2">
+                <span class="meta-label">FIG 01 // OPERATIONAL STACK</span>
                 
-                <h2 class="section-title reveal delay-100">
+                <h2 class="section-title">
                     Multidimensional Context
                 </h2>
                 
-                <div class="reveal delay-200">
+                <div>
                     <p class="body-text">
-                        The operational architecture of Fragma is not linear; it is vertical. We have mapped the battlefield of reality into a stack of three interlinked planes: the <strong>Cognitive</strong>, the <strong>Virtual</strong>, and the <strong>Physical</strong>. This isometric structure allows for granular control of the perceived environment, where each layer feeds into the next in a continuous recursive loop.
+                        The operational architecture of Fragma is not linear; it is vertical. We have mapped the battlefield of reality into a stack of three interlinked planes: the <strong>Cognitive</strong>, the <strong>Virtual</strong>, and the <strong>Physical</strong>. This isometric structure allows for granular control of the perceived environment.
                     </p>
                     <p class="body-text">
-                        The <strong>Cognitive Plane (Levels 1-2)</strong> represents the highest order of abstraction. This is where semantic structures, psychological biases, and cultural narratives reside. It is the domain of strategic intent and consensus engineering. Here, we do not manipulate data, but the meaning assigned to data.
+                        The <strong>Cognitive Plane (Levels 1-2)</strong> represents the highest order of abstraction. This is where semantic structures, psychological biases, and cultural narratives reside. It is the domain of strategic intent and consensus engineering.
                     </p>
                     <p class="body-text">
-                        The <strong>Virtual Plane</strong> acts as the transport layer, utilizing proprietary algorithms to manage signal distribution across digital vectors. Finally, the <strong>Physical Plane</strong> anchors the system, encompassing the hardware, the server farms, and ultimately, the biological interface: the human user.
+                        The <strong>Virtual Plane</strong> acts as the transport layer, utilizing proprietary algorithms to manage signal distribution. Finally, the <strong>Physical Plane</strong> anchors the system, encompassing the hardware and the biological interface: the human user.
                     </p>
                 </div>
             </div>
         </section>
 
 
-        <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-40 items-start border-b border-white/5 pb-20">
+        <section class="flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-16 mb-32 items-start border-b border-white/5 pb-16">
             
-            <div class="lg:col-span-5 sticky top-32">
-                <span class="meta-label reveal">FIG 02 // NEURAL INTERFACE</span>
+            <div class="w-full lg:col-span-7 reveal order-1 lg:order-2">
+                <img src="tech_neural.jpg" alt="Neural Tiers Schema" class="tech-visual w-full h-auto">
+            </div>
+
+            <div class="w-full lg:col-span-5 relative lg:sticky lg:top-32 reveal order-2 lg:order-1">
+                <span class="meta-label">FIG 02 // NEURAL INTERFACE</span>
                 
-                <h2 class="section-title reveal delay-100">
+                <h2 class="section-title">
                     Adaptive Tiered Neuromodulation
                 </h2>
                 
-                <div class="reveal delay-200">
+                <div>
                     <p class="body-text">
-                        The documented system presents a highly complex <strong>Brain-Computer Interface (BCI)</strong> structured on a hierarchical scale of five operational levels, defined as Tiers (0-4). This progression is strictly regulated by physical precision parameters and intensity measured in Watts per centimeter (W-cm).
+                        The documented system presents a highly complex <strong>Brain-Computer Interface (BCI)</strong> structured on a hierarchical scale of five operational levels, defined as Tiers (0-4). This progression is strictly regulated by physical precision parameters.
                     </p>
                     <p class="body-text">
-                        While lower levels (Tier 1) operate in a low-frequency regime (30Hz) for surface-level suggestion, the critical levels such as <strong>Tier 4</strong> utilize invasive deep neural stimulation reaching frequencies of <strong>100Hz</strong>. This capability allows the system to rewrite processing in Broca's Area in real-time.
+                        While lower levels (Tier 1) operate in a low-frequency regime (30Hz), the critical levels such as <strong>Tier 4</strong> utilize invasive deep neural stimulation reaching frequencies of <strong>100Hz</strong>. This allows the system to rewrite processing in Broca's Area in real-time.
                     </p>
                     <p class="body-text">
-                        The integration of these frequencies aims to manipulate specific neuro-linguistic circuits through an adaptive neuromodulation protocol. This effectively reaches the soft tissue level of the brain with a precision estimated at approximately <strong>100µm</strong>, allowing for the editing of semantic intent before it becomes conscious thought.
+                        The integration of these frequencies aims to manipulate specific neuro-linguistic circuits, reaching the soft tissue level with a precision estimated at approximately <strong>100µm</strong>.
                     </p>
                 </div>
-            </div>
-
-            <div class="lg:col-span-7 reveal">
-                <img src="tech_neural.jpg" alt="Neural Tiers Schema" class="tech-visual">
             </div>
         </section>
 
 
-        <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-40 items-start border-b border-white/5 pb-20">
+        <section class="flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-16 mb-32 items-start border-b border-white/5 pb-16">
             
-            <div class="lg:col-span-8 reveal">
-                <img src="tech_frequency.jpg" alt="Frequency Mechanics" class="tech-visual">
+            <div class="w-full lg:col-span-8 reveal order-1 lg:order-1">
+                <img src="tech_frequency.jpg" alt="Frequency Mechanics" class="tech-visual w-full h-auto">
             </div>
 
-            <div class="lg:col-span-4 sticky top-32">
-                <span class="meta-label reveal">FIG 03 // PROPAGATION</span>
+            <div class="w-full lg:col-span-4 relative lg:sticky lg:top-32 reveal order-2 lg:order-2">
+                <span class="meta-label">FIG 03 // PROPAGATION</span>
                 
-                <h2 class="section-title reveal delay-100">
+                <h2 class="section-title">
                     Sono-Mechanical Control
                 </h2>
                 
-                <div class="reveal delay-200">
+                <div>
                     <p class="body-text">
                         Detailing the mechanism of high-frequency signal propagation. The system utilizes the <strong>Acoustic Radiative Force</strong> to trigger mechanosensitive ion channels within the neural membrane.
                     </p>
                     <p class="body-text">
-                        This process creates a <strong>"Sono-Thermal Switch"</strong>. By inducing controlled cavitation and moderate thermal effects, we can activate or inhibit neuronal action potentials without any direct physical contact.
+                        This process creates a <strong>"Sono-Thermal Switch"</strong>. By inducing controlled cavitation and moderate thermal effects, we can activate or inhibit neuronal action potentials without direct contact.
                     </p>
                     <p class="body-text">
-                        The range of effect is sub-millimeter, allowing for the precise targeting of specific neural pathways within the temporal lobe, effectively bypassing the conscious filtering mechanisms of the subject.
+                        The range of effect is sub-millimeter, allowing for the precise targeting of specific neural pathways within the temporal lobe, bypassing conscious filtering mechanisms.
                     </p>
                 </div>
             </div>
         </section>
 
 
-        <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <section class="flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
             
-            <div class="lg:col-span-4 sticky top-32">
-                <span class="meta-label reveal">FIG 04 // BACKEND</span>
+            <div class="w-full lg:col-span-8 reveal order-1 lg:order-2">
+                <img src="tech_infra.jpg" alt="Infrastructure Blueprint" class="tech-visual  w-full h-auto">
+            </div>
+
+            <div class="w-full lg:col-span-4 relative lg:sticky lg:top-32 reveal order-2 lg:order-1">
+                <span class="meta-label">FIG 04 // BACKEND</span>
                 
-                <h2 class="section-title reveal delay-100">
+                <h2 class="section-title">
                     Global Infrastructure
                 </h2>
                 
-                <div class="reveal delay-200">
+                <div>
                     <p class="body-text">
                         Cognitive dominance requires immense computational power. Our server farms are not merely storage facilities; they are active content delivery platforms engineered for sub-millisecond latency.
                     </p>
                     <p class="body-text">
-                        The diagram illustrates the critical balance between <strong>Energy Consumption</strong> (peaking at 4.5 GW/h) and the semantic calculation capacity required for global deployment. To maintain continuous operation of the linguistic rendering engine, we utilize advanced liquid nitrogen cooling systems.
+                        The diagram illustrates the critical balance between <strong>Energy Consumption</strong> (peaking at 4.5 GW/h) and the semantic calculation capacity. To maintain continuous operation, we utilize advanced liquid nitrogen cooling systems.
                     </p>
                     <p class="body-text">
                         The architecture is decentralized across <strong>12,000 active nodes</strong> to ensure Tier IV resilience against both physical kinetic attacks and cyber-incursions.
                     </p>
                 </div>
-            </div>
-
-            <div class="lg:col-span-8 reveal">
-                <img src="tech_infra.jpg" alt="Infrastructure Blueprint" class="tech-visual invert-image">
             </div>
         </section>
 
@@ -270,7 +286,7 @@
                     <a href="products.html" class="hover:text-white transition-colors">Products</a>
                     <a href="technology.html" class="text-white transition-colors">Technology</a>
                     <a href="about.html" class="hover:text-white transition-colors">About</a>
-                    <a href="index.html" class="text-gray-600 hover:text-white transition-colors">Recently</a>
+                    <a href="index.html" class="hover:text-white transition-colors">Recently</a>
                 </div>
                 <div class="flex flex-col gap-3 font-mono text-[10px] uppercase tracking-widest">
                     <span class="text-gray-600 mb-2">Protocol</span>
@@ -306,18 +322,31 @@
             cursor.style.top = e.clientY + 'px';
         });
 
+        // Mobile Menu
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if(menu.classList.contains('menu-closed')) {
+                menu.classList.remove('menu-closed');
+                menu.classList.add('menu-open');
+                document.getElementById('menu-btn').innerText = 'Close';
+            } else {
+                menu.classList.remove('menu-open');
+                menu.classList.add('menu-closed');
+                document.getElementById('menu-btn').innerText = 'Menu';
+            }
+        }
+
         // Elegant Reveal Observer
         const observerOptions = {
             root: null,
             rootMargin: '0px',
-            threshold: 0.15 // Start revealing when 15% visible
+            threshold: 0.1
         };
 
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    // Optional: observer.unobserve(entry.target); // Keep animating if user scrolls back up/down? usually nicer to run once or keep active
                 }
             });
         }, observerOptions);
